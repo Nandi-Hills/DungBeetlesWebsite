@@ -19,21 +19,21 @@ const WIP_CONTENT = [
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/03_artwork.png",
+    "file": "media/03_artwork.jpeg",
     "type": "image",
     "tag": "update",
     "title": "03 artwork",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/04_artwork.jpg",
+    "file": "media/04_artwork.jpeg",
     "type": "image",
     "tag": "update",
     "title": "04 artwork",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/05_artwork.mp4",
+    "file": "media/05_artwork.gif",
     "type": "video",
     "tag": "update",
     "title": "05 artwork",

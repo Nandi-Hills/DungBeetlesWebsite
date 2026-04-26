@@ -1,9 +1,12 @@
 import os
 import json
+import time
+import re
 
-# Define folders and file
+# Define folders and files
 media_dir = 'media'
 output_file = 'wip-content.js'
+html_file = 'wip.html'
 
 # Supported formats
 valid_image_exts = ['.jpg', '.jpeg', '.png', '.gif', '.webp']
@@ -44,7 +47,31 @@ const UPCOMING_FEATURES = [
 ];
 """
 
-with open(output_file, 'w') as f:
+# 1. Write the new JS file
+with open(output_file, 'w', encoding='utf-8') as f:
     f.write(js_output)
 
 print(f"Success! {len(content_list)} files linked in {output_file}.")
+
+# 2. CACHE BUSTING: Auto-update the HTML file with a new timestamp
+if os.path.exists(html_file):
+    with open(html_file, 'r', encoding='utf-8') as f:
+        html_content = f.read()
+
+    # Generate a unique timestamp based on the exact second the script is run
+    version_id = int(time.time())
+
+    # Find the script tag and replace it with the new versioned tag
+    # This regex catches it whether it has a ?v= already or not
+    updated_html = re.sub(
+        r'<script src="wip-content\.js(\?v=\d+)?"></script>',
+        f'<script src="wip-content.js?v={version_id}"></script>',
+        html_content
+    )
+
+    with open(html_file, 'w', encoding='utf-8') as f:
+        f.write(updated_html)
+
+    print(f"Cache-busted {html_file}! Browser will now instantly load the fresh media.")
+else:
+    print(f"Warning: {html_file} not found. Could not update cache version.")

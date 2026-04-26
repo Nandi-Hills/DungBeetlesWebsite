@@ -849,7 +849,7 @@ document.querySelectorAll('.role-card').forEach(c => barObs.observe(c));
 //   2. Copy your Form ID (looks like: xabc1234)
 //   3. Replace 'YOUR_FORM_ID' below with that ID
 
-const FORMSPREE_ID = 'YOUR_FORM_ID'; // ← replace this
+const FORMSPREE_ID = 'mnjlyqko';  // ← replace this
 
 function handleSignup() {
   const input = document.getElementById('email-input');
@@ -865,7 +865,8 @@ function handleSignup() {
 
   // 1. Store locally
   const stored = JSON.parse(localStorage.getItem('db_waitlist') || '[]');
-  const entry = { email: val, date: new Date().toISOString() };
+  const istTime = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+  const entry = { email: val, date: istTime };
   if (!stored.find(e => e.email === val)) {
     stored.push(entry);
     localStorage.setItem('db_waitlist', JSON.stringify(stored));
@@ -876,7 +877,7 @@ function handleSignup() {
     fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ email: val, _subject: '🪲 New Dung Beetles Waitlist Signup' })
+     body: JSON.stringify({ email: val, submitted_at_IST: istTime, _subject: '🪲 New Dung Beetles Waitlist Signup' })
     }).catch(() => {}); // fail silently
   }
 
@@ -896,7 +897,7 @@ function openAdmin() {
   count.textContent = `${emails.length} email${emails.length!==1?'s':''} stored locally · Replace FORMSPREE_ID for cloud collection`;
   list.innerHTML = emails.length === 0
     ? '<div style="font-family:\'Share Tech Mono\',monospace;font-size:.75rem;color:var(--muted);padding:1rem 0;">No emails collected yet.</div>'
-    : emails.map((e,i) => `<div class="email-entry"><span class="email-entry-addr">${e.email}</span><span class="email-entry-date">${new Date(e.date).toLocaleString()}</span></div>`).join('');
+    : emails.map((e,i) => `<div class="email-entry"><span class="email-entry-addr">${e.email}</span><span class="email-entry-date">${e.date}</span></div>`).join('');
   document.getElementById('admin-modal').classList.add('open');
 }
 function closeAdmin() { document.getElementById('admin-modal').classList.remove('open'); }

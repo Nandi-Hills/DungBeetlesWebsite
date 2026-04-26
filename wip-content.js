@@ -5,38 +5,38 @@
 
 const WIP_CONTENT = [
   {
-    "file": "media/01_83c0b704-4807-4d38-804e-9079d5dccfc3.jpeg",
+    "file": "media/01_artwork.jpeg",
     "type": "image",
     "tag": "update",
-    "title": "01 83C0B704 4807 4D38 804E 9079D5Dccfc3",
+    "title": "01 artwork",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/02_0517d407-f792-47ad-a202-81f8b3c83fac.jpeg",
+    "file": "media/02_artwork.jpeg",
     "type": "image",
     "tag": "update",
-    "title": "02 0517D407 F792 47Ad A202 81F8B3C83Fac",
+    "title": "02 artwork",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/03_Title Screen.png",
+    "file": "media/03_artwork.png",
     "type": "image",
     "tag": "update",
-    "title": "03 Title Screen",
+    "title": "03 artwork",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/04_downloaddd.jpg",
+    "file": "media/04_artwork.jpg",
     "type": "image",
     "tag": "update",
-    "title": "04 Downloaddd",
+    "title": "04 artwork",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/05_Concept.mp4",
+    "file": "media/05_artwork.mp4",
     "type": "video",
     "tag": "update",
-    "title": "05 Concept",
+    "title": "05 artwork",
     "desc": "Auto-generated entry."
   }
 ];

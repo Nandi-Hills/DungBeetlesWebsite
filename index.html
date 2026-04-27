@@ -79,10 +79,10 @@
     .nav-cta:hover { background: var(--amber); color: var(--bg); }
 
     /* HERO */
-    #hero { position: relative; height: 100vh; min-height: 680px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    #hero { position: relative; height: 115vh; min-height: 740px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
     #hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
     .hero-bg-glow { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 55% at 50% 60%, rgba(212,135,10,.18) 0%, transparent 70%); pointer-events: none; }
-    .hero-content { position: relative; z-index: 2; text-align: center; padding: 0 2rem; }
+    .hero-content { position: relative; z-index: 2; text-align: center; padding: 0 2rem 6rem; }
     .hero-eyebrow { font-family: 'Share Tech Mono', monospace; font-size: .72rem; letter-spacing: .45em; color: var(--green-neon); text-transform: uppercase; opacity: 0; animation: fadeUp .8s .3s forwards; }
     .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(5rem, 13vw, 13rem); line-height: .88; letter-spacing: -.01em; color: var(--white); text-shadow: 0 0 80px rgba(212,135,10,.35); opacity: 0; animation: fadeUp .9s .5s forwards; }
     .hero-title .line2 { color: transparent; -webkit-text-stroke: 1.5px var(--amber); }
@@ -92,7 +92,8 @@
     .btn-primary:hover { background: var(--amber-glow); box-shadow: 0 0 40px rgba(245,166,35,.5); }
     .btn-ghost { background: transparent; color: var(--text); font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: .18em; padding: .85rem 2.6rem; border: 1px solid rgba(232,220,200,.25); cursor: none; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); transition: border-color .25s, color .25s; text-transform: uppercase; }
     .btn-ghost:hover { border-color: var(--text); }
-    .hero-scroll-hint { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: .5rem; opacity: 0; animation: fadeUp 1s 1.2s forwards; }
+    .hero-scroll-hint { position: absolute; bottom: 6.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: .5rem; opacity: 0; animation: fadeUp 1s 1.2s forwards; transition: opacity 0.4s ease; }
+    .hero-scroll-hint.hidden { opacity: 0 !important; pointer-events: none; }
     .hero-scroll-hint span { font-family: 'Share Tech Mono', monospace; font-size: .62rem; letter-spacing: .3em; color: var(--muted); text-transform: uppercase; }
     .scroll-line { width: 1px; height: 48px; background: linear-gradient(to bottom, var(--amber), transparent); animation: scrollPulse 2s infinite; }
 
@@ -128,17 +129,176 @@
     .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 3.2rem; letter-spacing: .05em; color: var(--amber-glow); line-height: 1; }
     .stat-label { font-family: 'Share Tech Mono', monospace; font-size: .64rem; letter-spacing: .3em; color: var(--muted); text-transform: uppercase; margin-top: .4rem; }
 
-    /* CORE LOOP */
+    /* CORE LOOP — Expandable Accordion */
     #loop { background: var(--bg2); }
-    .loop-header { margin-bottom: 4rem; }
-    .loop-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5px; background: rgba(212,135,10,.1); }
-    .step { background: var(--bg2); padding: 2.4rem 2rem; position: relative; transition: background .3s; overflow: hidden; }
-    .step::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--amber); transform: scaleX(0); transform-origin: left; transition: transform .4s ease; }
-    .step:hover { background: rgba(212,135,10,.06); }
-    .step:hover::before { transform: scaleX(1); }
-    .step-num { font-family: 'Bebas Neue', sans-serif; font-size: 4rem; color: rgba(212,135,10,.12); line-height: 1; margin-bottom: .8rem; }
-    .step h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: .08em; color: var(--white); margin-bottom: .7rem; }
-    .step p { font-size: .95rem; line-height: 1.65; color: var(--muted); font-weight: 400; }
+    .loop-header { margin-bottom: 3rem; }
+
+    .loop-accordion {
+      display: flex;
+      height: 280px; /* Reduced to your red line */
+      gap: 1.5px;
+      background: rgba(212,135,10,.1);
+      transition: height .6s cubic-bezier(.4,0,.2,1);
+    }
+    
+    /* Triggers the full height expansion */
+    .loop-accordion.is-expanded {
+      height: 520px; 
+    }
+
+    /* Styling for the new descriptions in the idle view */
+    .lp-desc-idle {
+      margin-top: 1rem;
+      font-size: .88rem;
+      line-height: 1.6;
+      color: rgba(107,92,69,.7);
+      transition: color .3s;
+      padding-right: 1rem;
+    }
+    .loop-panel:not(.is-active):hover .lp-desc-idle {
+      color: var(--muted);
+    }
+
+    /* Each panel */
+    .loop-panel {
+      position: relative;
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      cursor: none;
+      background: var(--bg2);
+      transition: flex .6s cubic-bezier(.4,0,.2,1);
+    }
+    .loop-panel.is-active { flex: 4.5; }
+
+    /* Video fills the panel */
+    .lp-video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity .55s ease;
+      pointer-events: none;
+    }
+    .loop-panel.is-active .lp-video { opacity: 1; }
+
+    /* Gradient scrim so text is readable */
+    .lp-scrim {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top,rgba(6,4,2,.95) 0%,rgba(6,4,2,.5) 50%,rgba(6,4,2,.12) 100%);
+      opacity: 0;
+      transition: opacity .55s ease;
+      z-index: 1;
+    }
+    .loop-panel.is-active .lp-scrim { opacity: 1; }
+
+    /* Amber top-bar indicator — slides in from left when active */
+    .lp-top-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--amber), var(--amber-glow));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .55s cubic-bezier(.4,0,.2,1);
+      z-index: 4;
+    }
+    .loop-panel.is-active .lp-top-bar { transform: scaleX(1); }
+
+    /* Idle content (number + title, always visible in collapsed state) */
+    .lp-idle {
+      position: absolute; inset: 0;
+      padding: 2rem 1.8rem;
+      display: flex; flex-direction: column;
+      z-index: 2;
+      transition: opacity .3s ease;
+    }
+    .loop-panel.is-active .lp-idle { opacity: 0; pointer-events: none; }
+
+    /* Small top bar on plain hover (not active) */
+    .lp-idle::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--amber);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .4s ease;
+    }
+    .loop-panel:not(.is-active):hover .lp-idle::before { transform: scaleX(1); }
+
+    .lp-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 4.5rem;
+      color: rgba(212,135,10,.12);
+      line-height: 1; margin-bottom: .5rem;
+      white-space: nowrap;
+      transition: color .3s;
+    }
+    .loop-panel:not(.is-active):hover .lp-num { color: rgba(212,135,10,.25); }
+
+    .lp-title-idle {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem; letter-spacing: .08em;
+      color: var(--muted);
+      white-space: nowrap;
+      transition: color .3s;
+    }
+    .loop-panel:not(.is-active):hover .lp-title-idle { color: var(--white); }
+
+    /* Expanded info overlay — slides up when active */
+    .lp-info {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 0 2.5rem 2.6rem;
+      z-index: 3;
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .45s ease .1s, transform .45s ease .1s;
+      pointer-events: none;
+    }
+    .loop-panel.is-active .lp-info {
+      opacity: 1; transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .lp-info-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 5rem; line-height: 1;
+      color: rgba(212,135,10,.15);
+    }
+    .lp-info h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem; letter-spacing: .05em;
+      color: var(--white); line-height: 1;
+      margin-bottom: .8rem;
+    }
+    .lp-info p {
+      font-size: .97rem; line-height: 1.68;
+      color: var(--muted); max-width: 400px; font-weight: 400;
+    }
+    .lp-now-playing {
+      display: inline-flex; align-items: center; gap: .55rem;
+      margin-top: 1.2rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: .62rem; letter-spacing: .25em;
+      color: var(--amber); text-transform: uppercase;
+    }
+    .lp-now-playing .np-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green-neon);
+      box-shadow: 0 0 6px var(--green-neon);
+      animation: pulse 1.4s infinite;
+    }
+
+    /* Responsive: stack vertically on small screens */
+    @media (max-width: 900px) {
+      .loop-accordion { flex-direction: column; height: auto !important; }
+      .loop-panel { flex: none !important; height: 210px; transition: height .55s cubic-bezier(.4,0,.2,1); }
+      .loop-panel.is-active { height: 380px; }
+    }
+    @media (max-width: 640px) {
+      .loop-panel { height: 180px; }
+      .loop-panel.is-active { height: 320px; }
+      .lp-info h3 { font-size: 2rem; }
+    }
 
     /* ROLES — 6 roles in 3-col grid */
     #roles { position: relative; }
@@ -259,14 +419,12 @@
       nav { padding: 1.2rem 1.5rem; }
       .nav-links { display: none; }
       #world, #economy { grid-template-columns: 1fr; }
-      .loop-steps { grid-template-columns: 1fr 1fr; }
       .stats-bar { flex-wrap: wrap; }
       .stat { flex: 0 0 50%; }
     }
     @media (max-width: 640px) {
       .roles-grid { grid-template-columns: 1fr; }
       section { padding: 5rem 1.4rem; }
-      .loop-steps { grid-template-columns: 1fr; }
       .email-form { flex-direction: column; }
       .email-form input { border-right: 1px solid rgba(212,135,10,.25); border-bottom: none; }
       .nav-right { gap: .4rem; }
@@ -368,7 +526,7 @@
   <div class="stat reveal"><div class="stat-num">5v5</div><div class="stat-label">Team Format</div></div>
   <div class="stat reveal"><div class="stat-num">6</div><div class="stat-label">Distinct Roles</div></div>
   <div class="stat reveal"><div class="stat-num">3x</div><div class="stat-label">Dung Economy Uses</div></div>
-  <div class="stat reveal"><div class="stat-num">∞</div><div class="stat-label">Tactical Depth</div></div>
+<div class="stat reveal"><div class="stat-num"><span style="font-family: system-ui, -apple-system, sans-serif;">∞</span></div><div class="stat-label">Tactical Depth</div></div>
 </div>
 
 <!-- CORE LOOP -->
@@ -377,11 +535,77 @@
     <span class="tag reveal">// Core Loop</span>
     <h2 class="reveal">HOW IT'S <em>PLAYED</em></h2>
   </div>
-  <div class="loop-steps reveal">
-    <div class="step"><div class="step-num">01</div><h3>Harvest</h3><p>Venture across the battlefield to collect small dung pickups or fight for the highly contested central dung pile. Every gram matters.</p></div>
-    <div class="step"><div class="step-num">02</div><h3>Roll</h3><p>Seize the central source and physically build massive dung rolls. Enter the universal Carrier State — trade your abilities for raw Momentum.</p></div>
-    <div class="step"><div class="step-num">03</div><h3>Escort</h3><p>Your teammates become your shield. Coordinate escort formations, body-block enemy interceptors, and punch through defensive lines.</p></div>
-    <div class="step"><div class="step-num">04</div><h3>Bank</h3><p>Store resources at your home base to climb the score. Invest in turrets, walls, traps, or observation beetles. Defend what you've earned.</p></div>
+  <!-- ↓ UPDATE video src paths to match your actual mp4 filenames ↓ -->
+  <div class="loop-accordion reveal" id="loop-accordion">
+
+    <div class="loop-panel" data-key="harvest">
+      <video class="lp-video" src="videos/Harvest.mp4" loop muted playsinline preload="none"></video>
+      <div class="lp-scrim"></div>
+      <div class="lp-top-bar"></div>
+      <div class="lp-idle">
+        <div class="lp-num">01</div>
+        <div class="lp-title-idle">Harvest</div>
+        <p class="lp-desc-idle">Venture across the battlefield to collect small dung pickups or fight for the highly contested central dung pile. Every gram matters.</p>
+      </div>
+      <div class="lp-info">
+        <div class="lp-info-num">01</div>
+        <h3>Harvest</h3>
+        <p>Venture across the battlefield to collect small dung pickups or fight for the highly contested central dung pile. Every gram matters.</p>
+        <div class="lp-now-playing"><span class="np-dot"></span>Now Playing</div>
+      </div>
+    </div>
+
+    <div class="loop-panel" data-key="roll">
+      <video class="lp-video" src="videos/Roll.mp4" loop muted playsinline preload="none"></video>
+      <div class="lp-scrim"></div>
+      <div class="lp-top-bar"></div>
+      <div class="lp-idle">
+        <div class="lp-num">02</div>
+        <div class="lp-title-idle">Roll</div>
+        <p class="lp-desc-idle">Seize the central source and physically build massive dung rolls. Enter the universal Carrier State — trade your abilities for raw Momentum.</p>
+      </div>
+      <div class="lp-info">
+        <div class="lp-info-num">02</div>
+        <h3>Roll</h3>
+        <p>Seize the central source and physically build massive dung rolls. Enter the universal Carrier State — trade your abilities for raw Momentum.</p>
+        <div class="lp-now-playing"><span class="np-dot"></span>Now Playing</div>
+      </div>
+    </div>
+
+    <div class="loop-panel" data-key="escort">
+      <video class="lp-video" src="videos/Escort.mp4" loop muted playsinline preload="none"></video>
+      <div class="lp-scrim"></div>
+      <div class="lp-top-bar"></div>
+      <div class="lp-idle">
+        <div class="lp-num">03</div>
+        <div class="lp-title-idle">Escort</div>
+        <p class="lp-desc-idle">Your teammates become your shield. Coordinate escort formations, body-block enemy interceptors, and punch through defensive lines.</p>
+      </div>
+      <div class="lp-info">
+        <div class="lp-info-num">03</div>
+        <h3>Escort</h3>
+        <p>Your teammates become your shield. Coordinate escort formations, body-block enemy interceptors, and punch through defensive lines.</p>
+        <div class="lp-now-playing"><span class="np-dot"></span>Now Playing</div>
+      </div>
+    </div>
+
+    <div class="loop-panel" data-key="bank">
+      <video class="lp-video" src="videos/Bank.mp4" loop muted playsinline preload="none"></video>
+      <div class="lp-scrim"></div>
+      <div class="lp-top-bar"></div>
+      <div class="lp-idle">
+        <div class="lp-num">04</div>
+        <div class="lp-title-idle">Bank</div>
+        <p class="lp-desc-idle">Store resources at your home base to climb the score. Invest in turrets, walls, traps, or observation beetles. Defend what you've earned.</p>
+      </div>
+      <div class="lp-info">
+        <div class="lp-info-num">04</div>
+        <h3>Bank</h3>
+        <p>Store resources at your home base to climb the score. Invest in turrets, walls, traps, or observation beetles. Defend what you've earned.</p>
+        <div class="lp-now-playing"><span class="np-dot"></span>Now Playing</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -924,8 +1148,55 @@ document.getElementById('admin-modal').addEventListener('click', e => {
 
 
 
-/* ─── NAV SHRINK ─── */
+/* ─── LOOP ACCORDION ─── */
+(function () {
+  const accordion = document.getElementById('loop-accordion');
+  if (!accordion) return;
+  const panels = Array.from(accordion.querySelectorAll('.loop-panel'));
+  let active = null;
+
+  function activate(panel) {
+    if (active === panel) return;
+
+    if (active) {
+      const oldVid = active.querySelector('.lp-video');
+      active.classList.remove('is-active');
+      if (oldVid) oldVid.pause();
+    }
+
+    panel.classList.add('is-active');
+    accordion.classList.add('is-expanded'); // <-- Triggers the height expansion
+    
+    const vid = panel.querySelector('.lp-video');
+    if (vid) {
+      vid.currentTime = 0;
+      vid.play().catch(() => {});
+    }
+    active = panel;
+  }
+
+  function deactivateAll() {
+    if (!active) return;
+    active.classList.remove('is-active');
+    accordion.classList.remove('is-expanded'); // <-- Collapses the height
+    
+    const vid = active.querySelector('.lp-video');
+    if (vid) { vid.pause(); vid.currentTime = 0; }
+    active = null;
+  }
+
+  panels.forEach(panel => {
+    panel.addEventListener('mouseenter', () => activate(panel));
+  });
+
+  // Only collapse when the cursor fully leaves the accordion container
+  accordion.addEventListener('mouseleave', () => deactivateAll());
+})();
+
+
+/* ─── SCROLL EFFECTS (Nav Shrink & Scroll Hint Fade) ─── */
 window.addEventListener('scroll', () => {
+  // 1. Nav Shrink
   const nav = document.querySelector('nav');
   if (window.scrollY > 60) {
     nav.style.padding = '.9rem 3rem';
@@ -933,6 +1204,16 @@ window.addEventListener('scroll', () => {
   } else {
     nav.style.padding = '1.4rem 3rem';
     nav.style.borderBottomColor = 'rgba(212,135,10,.12)';
+  }
+  
+  // 2. Scroll Hint Fade Out
+  const scrollHint = document.querySelector('.hero-scroll-hint');
+  if (scrollHint) {
+      if (window.scrollY > 20) {
+          scrollHint.classList.add('hidden'); // Fades out when you scroll down
+      } else {
+          scrollHint.classList.remove('hidden'); // Fades back in at the top
+      }
   }
 }, { passive: true });
 </script>

@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   
-  <script src="wip-content.js?v=1777241782"></script>
+  <script src="wip-content.js?v=1777329927"></script>
 
   <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
@@ -40,9 +40,9 @@
     @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.5}}
 
     /* HERO */
-    #hero{position:relative;height:100vh;min-height:640px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+    #hero{position:relative;height:115vh;min-height:720px;display:flex;align-items:center;justify-content:center;overflow:hidden;}
     #hero-canvas{position:absolute;inset:0;width:100%;height:100%;}
-    .hero-content{position:relative;z-index:2;text-align:center;padding:0 2rem;}
+    .hero-content{position:relative;z-index:2;text-align:center;padding:0 2rem 6rem;}
     .hero-eyebrow{font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:.5em;color:var(--green-neon);text-transform:uppercase;opacity:0;animation:fadeUp .7s .3s forwards;}
     .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,14vw,13rem);line-height:.85;letter-spacing:.02em;color:var(--white);text-shadow:0 0 90px rgba(212,135,10,.3);opacity:0;animation:fadeUp .85s .5s forwards;}
     .hero-title .stroke{color:transparent;-webkit-text-stroke:1.5px var(--amber);}
@@ -51,7 +51,8 @@
     .hc{text-align:center;}
     .hc-num{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:var(--amber-glow);line-height:1;}
     .hc-label{font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;}
-    .scroll-hint{position:absolute;bottom:2.2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fadeUp .9s 1.2s forwards;}
+    .scroll-hint{position:absolute;bottom:7.2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fadeUp .9s 1.2s forwards; transition: opacity 0.4s ease;}
+    .scroll-hint.hidden { opacity: 0 !important; pointer-events: none; }
     .scroll-hint span{font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:.35em;color:var(--muted);text-transform:uppercase;}
     .scroll-line{width:1px;height:44px;background:linear-gradient(to bottom,var(--amber),transparent);animation:scrollAnim 2s infinite;}
     @keyframes scrollAnim{0%,100%{opacity:.4}50%{opacity:1}}
@@ -96,9 +97,9 @@
     /* CONCEPT ART */
     #gallery{background:var(--bg);}
     .gallery-header{margin-bottom:3rem;}
-    .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(212,135,10,.06);}
-    .art-card{background:var(--bg);position:relative;overflow:hidden;aspect-ratio:4/3;cursor:none;transition:border-color .3s;border:1px solid transparent;}
-    .art-card:hover{border-color:rgba(212,135,10,.4);}
+    .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(212,135,10,.06);overflow:visible;}
+    .art-card{background:var(--bg);position:relative;overflow:hidden;aspect-ratio:4/3;cursor:none;transition:border-color .35s,box-shadow .45s,transform .35s;border:1px solid transparent;transform:scale(1);}
+    .art-card:hover{border-color:rgba(212,135,10,.6);box-shadow:0 0 22px rgba(212,135,10,.4),0 0 55px rgba(212,135,10,.12),inset 0 0 24px rgba(212,135,10,.05);transform:scale(1.025);z-index:2;}
     .art-card canvas{width:100%;height:100%;display:block;}
     .art-card-info{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(6,4,2,.95) 0%,transparent 100%);padding:1.8rem 1.2rem .9rem;transform:translateY(4px);transition:transform .3s;}
     .art-card:hover .art-card-info{transform:translateY(0);}
@@ -116,17 +117,46 @@
     .art-status.wip{border-color:rgba(212,135,10,.4);color:var(--amber);animation:wipBlink 2s infinite;}
     .art-status.soon{border-color:rgba(107,92,69,.4);color:var(--muted);}
 
-    /* GAMEPLAY (DYNAMIC GALLERY CSS UPDATE) */
+    /* SLIDESHOW (Media Vault) */
     #gameplay{background:var(--mud);}
-    .gameplay-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(212,135,10,.06);}
-    .gp-card{background:var(--mud);position:relative;overflow:hidden;}
-    /* Replaced canvas styling to support dynamic img/video scaling */
-    .gp-card img, .gp-card video { width:100%; height:100%; display:block; object-fit:cover; aspect-ratio:16/9; background:#060402; }
-    .gp-info{padding:1.4rem;border-top:1px solid var(--border2);}
-    .gp-num{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:rgba(212,135,10,.1);line-height:1;position:absolute;top:.5rem;left:1rem;z-index:2;}
-    .gp-title{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.06em;color:var(--white);margin-bottom:.3rem;}
-    .gp-desc{font-size:.88rem;color:var(--muted);line-height:1.6;}
-    .gp-tag{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.25em;color:var(--amber);text-transform:uppercase;margin-bottom:.4rem;display:block;}
+
+    .slideshow-outer{position:relative;border:1px solid var(--border);border-radius:2px;transition:border-color .4s,box-shadow .5s;}
+    .slideshow-outer:hover{border-color:var(--amber);box-shadow:0 0 28px rgba(212,135,10,.4),0 0 70px rgba(212,135,10,.14),inset 0 0 40px rgba(212,135,10,.04);}
+
+    .slide-main{position:relative;aspect-ratio:16/9;background:#060402;overflow:hidden;}
+    .slide-item{position:absolute;inset:0;opacity:0;transition:opacity .65s ease,transform .65s ease;transform:scale(1.04);z-index:1;}
+    .slide-item.active{opacity:1;transform:scale(1);z-index:2;}
+    .slide-item img,.slide-item video{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;}
+    .slideshow-outer:hover .slide-item.active img,
+    .slideshow-outer:hover .slide-item.active video{transform:scale(1.035);}
+
+    .slide-info-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(6,4,2,.96) 0%,rgba(6,4,2,.4) 60%,transparent 100%);padding:4rem 2rem 1.6rem;z-index:3;pointer-events:none;}
+    .slide-tag{font-family:'Share Tech Mono',monospace;font-size:.6rem;letter-spacing:.28em;color:var(--amber);text-transform:uppercase;margin-bottom:.4rem;}
+    .slide-title{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.06em;color:var(--white);}
+    .slide-desc{font-size:.88rem;color:var(--muted);margin-top:.3rem;}
+
+    .slide-counter{position:absolute;top:1rem;right:1rem;font-family:'Share Tech Mono',monospace;font-size:.62rem;letter-spacing:.2em;color:var(--muted);background:rgba(6,4,2,.8);border:1px solid var(--border);padding:.35rem .8rem;z-index:4;}
+
+    .slide-pause-badge{position:absolute;top:1rem;left:1rem;font-family:'Share Tech Mono',monospace;font-size:.55rem;letter-spacing:.22em;color:var(--amber);background:rgba(6,4,2,.82);border:1px solid rgba(212,135,10,.35);padding:.32rem .7rem;z-index:4;opacity:0;transition:opacity .3s;}
+    .slideshow-outer:hover .slide-pause-badge{opacity:1;}
+
+    .slide-progress{position:absolute;bottom:0;left:0;right:0;height:2px;background:rgba(212,135,10,.1);z-index:5;}
+    .slide-progress-fill{height:100%;background:linear-gradient(to right,var(--amber),var(--green-neon));width:0%;}
+
+    .slide-btn{position:absolute;top:50%;transform:translateY(-50%);z-index:4;font-family:'Share Tech Mono',monospace;font-size:.85rem;color:var(--muted);background:rgba(6,4,2,.75);border:1px solid var(--border);width:46px;height:46px;display:flex;align-items:center;justify-content:center;cursor:none;transition:color .2s,border-color .2s,box-shadow .2s,background .2s;}
+    .slide-btn:hover{color:var(--amber-glow);border-color:var(--amber);box-shadow:0 0 14px rgba(212,135,10,.4);background:rgba(6,4,2,.92);}
+    .slide-btn.prev{left:1.2rem;}
+    .slide-btn.next{right:1.2rem;}
+
+    .slide-thumbs{display:flex;gap:2px;background:rgba(212,135,10,.05);overflow-x:auto;scrollbar-width:none;padding:2px;}
+    .slide-thumbs::-webkit-scrollbar{display:none;}
+    .slide-thumb{flex:0 0 130px;aspect-ratio:16/9;position:relative;overflow:hidden;cursor:none;border:1px solid transparent;opacity:.45;transition:opacity .3s,border-color .3s,box-shadow .3s;}
+    .slide-thumb img,.slide-thumb video{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;}
+    .slide-thumb:hover{opacity:.8;border-color:rgba(212,135,10,.4);}
+    .slide-thumb.active{opacity:1;border-color:var(--amber);box-shadow:0 0 12px rgba(212,135,10,.45);}
+    .slide-thumb-num{position:absolute;bottom:.3rem;left:.45rem;font-family:'Share Tech Mono',monospace;font-size:.5rem;letter-spacing:.15em;color:rgba(232,220,200,.5);}
+
+    @media(max-width:700px){.slide-thumb{flex:0 0 90px;}.slide-title{font-size:1.5rem;}.slide-btn{width:38px;height:38px;}}
 
     /* PROGRESS */
     #progress{background:var(--bg2);}
@@ -284,11 +314,11 @@
     <span>Role Balance Pass</span><span class="acc">&#9679;</span><span>Arena Tileset</span><span class="acc">&#9679;</span>
     <span>Sprint FX</span><span class="acc">&#9679;</span><span>Beta Incoming</span><span class="acc">&#9679;</span>
     <span>Storm Kit Reveal</span><span class="acc">&#9679;</span><span>Stealth Rework</span><span class="acc">&#9679;</span>
-    <span>Map Design v3</span><span class="acc">&#9679;</span><span>UI Polish</span><span class="acc">&#9679;</span>
+    <span>Map Design v1</span><span class="acc">&#9679;</span><span>UI Polish</span><span class="acc">&#9679;</span>
     <span>Carrier State</span><span class="acc">&#9679;</span><span>Dung Roll Physics</span><span class="acc">&#9679;</span>
-    <span>Role Balance Pass</span><span class="acc">&#9679;</span><span>Arena Tileset</span><span class="acc">&#9679;</span>
+    <span>Role Balance Pass</span><span class="acc">&#9679;</span><span>Map Layouting</span><span class="acc">&#9679;</span>
     <span>Sprint FX</span><span class="acc">&#9679;</span><span>Beta Incoming</span><span class="acc">&#9679;</span>
-    <span>Storm Kit Reveal</span><span class="acc">&#9679;</span><span>Stealth Rework</span>
+    <span>Beetles Kit Reveal</span><span class="acc">&#9679;</span><span>Ability Rework</span>
   </div>
 </div>
 
@@ -297,9 +327,9 @@
   <h2 class="s-title reveal">LATEST <em>UPDATES</em></h2>
   <div class="devlog-layout">
     <div class="devlog-left reveal-left">
-      <div class="version-badge">Current Build: v0.4.2 &mdash; Alpha</div>
-      <p style="margin-top:1.6rem;">We're building <strong>Dung Beetles</strong> in public. Every week we push updates to design, art, and balance &mdash; and we share all of it here.</p>
-      <p>No marketing fluff. No "stay tuned." Just the raw work &mdash; wins, failures, redesigns, and everything in between.</p>
+      <div class="version-badge">Current Build: v0.0.1 &mdash; Pre-Alpha</div>
+      <p style="margin-top:1.6rem;">Documenting the journey of <strong>Dung Beetles</strong> . The code is private, but the process isn't.</p>
+      <p>This devlog is where we share unfiltered updates as the game evolves. Expect a real look at our design shifts, art progress, and mechanics tweaking. Just pure game dev, from failures to breakthroughs.</p>
       <div class="milestone-box">
         <div class="ms-tag">// LATEST MILESTONE</div>
         <div class="ms-title">Storm Role &mdash; First Playable</div>
@@ -363,7 +393,7 @@
     <h2 class="s-title reveal">HOW IT <em>FEELS</em></h2>
   </div>
   
-  <div class="gameplay-grid reveal" id="dynamic-media-grid"></div>
+  <div class="reveal" id="dynamic-media-grid"></div>
 </section>
 
 <section id="progress">
@@ -371,14 +401,14 @@
   <h2 class="s-title reveal">WHAT'S <em>BUILT</em></h2>
   <p class="reveal" style="margin-top:.8rem;font-size:1rem;color:var(--muted);">Real completion data from our internal build tracker. Updated every sprint.</p>
   <div class="progress-grid reveal">
-    <div class="prog-item"><div class="prog-corner tl"></div><div class="prog-corner br"></div><div class="prog-top"><span class="prog-name">Core Movement</span><span class="prog-pct" data-pct="94">0%</span></div><div class="prog-bar-bg"><div class="prog-bar-fill" data-target="38"></div></div><div class="prog-status">&#9679; Sprint mechanic, six-leg posture shift &mdash; shipping</div></div>
-    <div class="prog-item"><div class="prog-corner tl"></div><div class="prog-corner br"></div><div class="prog-top"><span class="prog-name">Dung Roll Physics</span><span class="prog-pct" data-pct="78">0%</span></div><div class="prog-bar-bg"><div class="prog-bar-fill" data-target="11"></div></div><div class="prog-status">&#9679; Momentum overhaul v2 &mdash; in active tuning</div></div>
-    <div class="prog-item"><div class="prog-corner tl"></div><div class="prog-corner br"></div><div class="prog-top"><span class="prog-name">Defender + Attacker</span><span class="prog-pct" data-pct="88">0%</span></div><div class="prog-bar-bg"><div class="prog-bar-fill" data-target="10"></div></div><div class="prog-status">&#9679; Kits finalised &middot; balance pass ongoing</div></div>
-    <div class="prog-item"><div class="prog-corner tl"></div><div class="prog-corner br"></div><div class="prog-top"><span class="prog-name">Scout + Trapper</span><span class="prog-pct" data-pct="72">0%</span></div><div class="prog-bar-bg"><div class="prog-bar-fill" data-target="5"></div></div><div class="prog-status">&#9679; Radar system done &middot; Trapper mines in QA</div></div>
-    <div class="prog-item"><div class="prog-corner tl"></div><div class="prog-corner br"></div><div class="prog-top"><span class="prog-name">Stealth Role</span><span class="prog-pct" data-pct="55">0%</span></div><div class="prog-bar-bg"><div class="prog-bar-fill" data-target="1"></div></div><div class="prog-status">&#9679; Cloak v2 in prototype &middot; shimmer FX pending</div></div>
-    <div class="prog-item"><div class="prog-corner tl"></div><div class="prog-corner br"></div><div class="prog-top"><span class="prog-name">Storm Role</span><span class="prog-pct" data-pct="38">0%</span></div><div class="prog-bar-bg"><div class="prog-bar-fill" data-target="0"></div></div><div class="prog-status">&#9679; EMP prototype done &middot; arc visuals in progress</div></div>
-    <div class="prog-item"><div class="prog-corner tl"></div><div class="prog-corner br"></div><div class="prog-top"><span class="prog-name">Base Defense System</span><span class="prog-pct" data-pct="81">0%</span></div><div class="prog-bar-bg"><div class="prog-bar-fill" data-target="0"></div></div><div class="prog-status">&#9679; Turrets + walls done &middot; traps in QA</div></div>
-    <div class="prog-item"><div class="prog-corner tl"></div><div class="prog-corner br"></div><div class="prog-top"><span class="prog-name">The Undergarden Map</span><span class="prog-pct" data-pct="44">0%</span></div><div class="prog-bar-bg"><div class="prog-bar-fill" data-target="0"></div></div><div class="prog-status">&#9679; Layout v3 locked &middot; tileset in art pass</div></div>
+    <div class="prog-item"><div class="prog-corner tl"></div><div class="prog-corner br"></div><div class="prog-top"><span class="prog-name">Core Movement</span><span class="prog-pct" data-pct="94">0%</span></div><div class="prog-bar-bg"><div class="prog-bar-fill" data-target="64"></div></div><div class="prog-status">&#9679; Sprint mechanic, six-leg posture shift &mdash; shipping</div></div>
+    <div class="prog-item"><div class="prog-corner tl"></div><div class="prog-corner br"></div><div class="prog-top"><span class="prog-name">Dung Roll Physics</span><span class="prog-pct" data-pct="78">0%</span></div><div class="prog-bar-bg"><div class="prog-bar-fill" data-target="15"></div></div><div class="prog-status">&#9679; Momentum overhaul v2 &mdash; in active tuning</div></div>
+    <div class="prog-item"><div class="prog-corner tl"></div><div class="prog-corner br"></div><div class="prog-top"><span class="prog-name">6 Beetle Design</span><span class="prog-pct" data-pct="88">0%</span></div><div class="prog-bar-bg"><div class="prog-bar-fill" data-target="25"></div></div><div class="prog-status">&#9679; Kits finalised &middot; balance pass ongoing</div></div>
+    <div class="prog-item"><div class="prog-corner tl"></div><div class="prog-corner br"></div><div class="prog-top"><span class="prog-name">Combat Mechanic</span><span class="prog-pct" data-pct="72">0%</span></div><div class="prog-bar-bg"><div class="prog-bar-fill" data-target="5"></div></div><div class="prog-status">&#9679; Radar system done &middot; Trapper mines in QA</div></div>
+    <div class="prog-item"><div class="prog-corner tl"></div><div class="prog-corner br"></div><div class="prog-top"><span class="prog-name">Dung Economy System</span><span class="prog-pct" data-pct="55">0%</span></div><div class="prog-bar-bg"><div class="prog-bar-fill" data-target="5"></div></div><div class="prog-status">&#9679; Cloak v2 in prototype &middot; shimmer FX pending</div></div>
+    <div class="prog-item"><div class="prog-corner tl"></div><div class="prog-corner br"></div><div class="prog-top"><span class="prog-name">Ability Integration</span><span class="prog-pct" data-pct="38">0%</span></div><div class="prog-bar-bg"><div class="prog-bar-fill" data-target="5"></div></div><div class="prog-status">&#9679; EMP prototype done &middot; arc visuals in progress</div></div>
+    <div class="prog-item"><div class="prog-corner tl"></div><div class="prog-corner br"></div><div class="prog-top"><span class="prog-name">Map Development</span><span class="prog-pct" data-pct="81">0%</span></div><div class="prog-bar-bg"><div class="prog-bar-fill" data-target="15"></div></div><div class="prog-status">&#9679; Turrets + walls done &middot; traps in QA</div></div>
+    <div class="prog-item"><div class="prog-corner tl"></div><div class="prog-corner br"></div><div class="prog-top"><span class="prog-name">Base Defense Setup</span><span class="prog-pct" data-pct="44">0%</span></div><div class="prog-bar-bg"><div class="prog-bar-fill" data-target="5"></div></div><div class="prog-status">&#9679; Layout v3 locked &middot; tileset in art pass</div></div>
   </div>
 </section>
 
@@ -604,35 +634,169 @@ document.querySelectorAll('.prog-item').forEach(p=>pObs.observe(p));
 const rObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis');else e.target.classList.remove('vis');});},{threshold:.1,rootMargin:'0px 0px -20px 0px'});
 document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>rObs.observe(el));
 
-/* NAV SHRINK */
-window.addEventListener('scroll',()=>{document.querySelector('nav').style.padding=window.scrollY>60?'.8rem 3rem':'1.1rem 3rem';},{passive:true});
+/* SCROLL EFFECTS (Nav Shrink & Hero Scroll Hint) */
+window.addEventListener('scroll', () => {
+    // 1. Nav Shrink
+    document.querySelector('nav').style.padding = window.scrollY > 60 ? '.8rem 3rem' : '1.1rem 3rem';
+    
+    // 2. Scroll Hint Fade Out
+    const scrollHint = document.querySelector('.scroll-hint');
+    if (scrollHint) {
+        if (window.scrollY > 20) {
+            scrollHint.classList.add('hidden'); // Fades out when you scroll down
+        } else {
+            scrollHint.classList.remove('hidden'); // Fades back in at the very top
+        }
+    }
+}, {passive:true});
 
 /* DYNAMIC CONTENT GENERATION (From wip-content.js) */
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Render Gallery Media
+    // 1. Render Slideshow
     const mediaGrid = document.getElementById('dynamic-media-grid');
     if (typeof WIP_CONTENT !== 'undefined' && WIP_CONTENT.length > 0) {
-        mediaGrid.innerHTML = WIP_CONTENT.map((item, index) => {
-            const mediaHtml = item.type === 'video'
-                ? `<video src="${item.file}" autoplay loop muted playsinline></video>`
-                : `<img src="${item.file}" alt="${item.title}" />`;
+        const DURATION = 5000;
+        let current = 0;
+        let paused = false;
+        let autoTimer = null;
+        let progressStart = null;
+        let progressElapsed = 0;
+        let progressRaf = null;
+
+        const pad = n => String(n).padStart(2, '0');
+
+        // Build slideshow HTML
+        mediaGrid.innerHTML = `
+          <div class="slideshow-outer" id="slideshow-wrap">
+            <div class="slide-main">
+              ${WIP_CONTENT.map((item, i) => `
+                <div class="slide-item ${i === 0 ? 'active' : ''}" data-i="${i}">
+                  ${item.type === 'video'
+                    ? `<video src="${item.file}" autoplay loop muted playsinline></video>`
+                    : `<img src="${item.file}" alt="${item.title}" loading="lazy" />`}
+                </div>`).join('')}
+              <div class="slide-info-overlay" id="slide-info">
+                <div class="slide-tag">// ${WIP_CONTENT[0].tag || 'update'}</div>
+                <div class="slide-title">${WIP_CONTENT[0].title}</div>
+                <div class="slide-desc">${WIP_CONTENT[0].desc}</div>
+              </div>
+              <div class="slide-counter" id="slide-ctr">${pad(1)} / ${pad(WIP_CONTENT.length)}</div>
+              <div class="slide-pause-badge">&#9646;&#9646; PAUSED</div>
+              <button class="slide-btn prev" id="slide-prev" aria-label="Previous">&#8592;</button>
+              <button class="slide-btn next" id="slide-next" aria-label="Next">&#8594;</button>
+              <div class="slide-progress"><div class="slide-progress-fill" id="slide-fill"></div></div>
+            </div>
+            <div class="slide-thumbs" id="slide-thumbs">
+              ${WIP_CONTENT.map((item, i) => `
+                <div class="slide-thumb ${i === 0 ? 'active' : ''}" data-i="${i}">
+                  ${item.type === 'video'
+                    ? `<video src="${item.file}" muted preload="metadata"></video>`
+                    : `<img src="${item.file}" alt="" loading="lazy" />`}
+                  <div class="slide-thumb-num">${pad(i + 1)}</div>
+                </div>`).join('')}
+            </div>
+          </div>`;
+
+        const fill = document.getElementById('slide-fill');
+        const info = document.getElementById('slide-info');
+        const ctr  = document.getElementById('slide-ctr');
+        const items = document.querySelectorAll('.slide-item');
+        const thumbs = document.querySelectorAll('.slide-thumb');
+        const wrap  = document.getElementById('slideshow-wrap');
+
+        function updateInfo(idx) {
+            const item = WIP_CONTENT[idx];
+            info.innerHTML = `
+              <div class="slide-tag">// ${item.tag || 'update'}</div>
+              <div class="slide-title">${item.title}</div>
+              <div class="slide-desc">${item.desc}</div>`;
+            ctr.textContent = `${pad(idx + 1)} / ${pad(WIP_CONTENT.length)}`;
+        }
+
+        function goTo(idx) {
+            idx = ((idx % WIP_CONTENT.length) + WIP_CONTENT.length) % WIP_CONTENT.length;
+            items[current].classList.remove('active');
+            thumbs[current].classList.remove('active');
+            current = idx;
+            items[current].classList.add('active');
+            thumbs[current].classList.add('active');
+            updateInfo(current);
             
-            // Format number (e.g., 01, 02)
-            const num = String(index + 1).padStart(2, '0');
+            // NEW FIX: Manually calculate horizontal scroll for the thumbnail strip 
+            // so it never hijacks the vertical page scroll!
+            const thumbContainer = document.getElementById('slide-thumbs');
+            const activeThumb = thumbs[current];
+            const scrollPos = activeThumb.offsetLeft - (thumbContainer.clientWidth / 2) + (activeThumb.clientWidth / 2);
+            thumbContainer.scrollTo({ left: scrollPos, behavior: 'smooth' });
             
-            return `
-            <div class="gp-card">
-                <div class="gp-num">${num}</div>
-                ${mediaHtml}
-                <div class="gp-info">
-                    ${item.tag ? `<span class="gp-tag">// ${item.tag}</span>` : ''}
-                    <div class="gp-title">${item.title}</div>
-                    <div class="gp-desc">${item.desc}</div>
-                </div>
-            </div>`;
-        }).join('');
+            resetProgress();
+        }
+
+        // Progress bar animation
+        function startProgress() {
+            cancelAnimationFrame(progressRaf);
+            progressStart = performance.now() - progressElapsed;
+            function tick(now) {
+                if (paused) return;
+                const elapsed = now - progressStart;
+                const pct = Math.min(elapsed / DURATION * 100, 100);
+                fill.style.width = pct + '%';
+                if (pct < 100) progressRaf = requestAnimationFrame(tick);
+                else { progressElapsed = 0; goTo(current + 1); }
+            }
+            progressRaf = requestAnimationFrame(tick);
+        }
+
+        function pauseProgress(now) {
+            cancelAnimationFrame(progressRaf);
+            progressElapsed = now - progressStart;
+            fill.style.width = (Math.min(progressElapsed / DURATION * 100, 100)) + '%';
+        }
+
+        function resetProgress() {
+            cancelAnimationFrame(progressRaf);
+            progressElapsed = 0;
+            fill.style.transition = 'none';
+            fill.style.width = '0%';
+            if (!paused) startProgress();
+        }
+
+        // Pause on hover
+        wrap.addEventListener('mouseenter', e => { paused = true; pauseProgress(performance.now()); });
+        wrap.addEventListener('mouseleave', e => { paused = false; startProgress(); });
+
+        // Nav buttons
+        document.getElementById('slide-prev').addEventListener('click', () => goTo(current - 1));
+        document.getElementById('slide-next').addEventListener('click', () => goTo(current + 1));
+
+        // Thumbnail clicks
+        document.querySelectorAll('.slide-thumb').forEach(t => {
+            t.addEventListener('click', () => goTo(parseInt(t.dataset.i)));
+        });
+
+        // Keyboard arrows (when section is in view)
+        document.addEventListener('keydown', e => {
+            const rect = wrap.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+                if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+                if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
+            }
+        });
+
+        // Touch swipe
+        let touchX = null;
+        wrap.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+        wrap.addEventListener('touchend', e => {
+            if (touchX === null) return;
+            const dx = e.changedTouches[0].clientX - touchX;
+            if (Math.abs(dx) > 50) goTo(current + (dx < 0 ? 1 : -1));
+            touchX = null;
+        });
+
+        resetProgress();
+
     } else {
-        mediaGrid.innerHTML = `<div style="padding: 2.5rem; color: var(--muted); font-family: 'Share Tech Mono', monospace; grid-column: 1 / -1; border: 1px dashed var(--border2); text-align: center;">// Awaiting uploads in wip-content.js</div>`;
+        mediaGrid.innerHTML = `<div style="padding:2.5rem;color:var(--muted);font-family:'Share Tech Mono',monospace;border:1px dashed var(--border2);text-align:center;">// Awaiting uploads in wip-content.js</div>`;
     }
 
     // 2. Render Upcoming Features

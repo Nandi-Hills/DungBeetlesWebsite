@@ -92,17 +92,16 @@
     .btn-primary:hover { background: var(--amber-glow); box-shadow: 0 0 40px rgba(245,166,35,.5); }
     .btn-ghost { background: transparent; color: var(--text); font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: .18em; padding: .85rem 2.6rem; border: 1px solid rgba(232,220,200,.25); cursor: none; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); transition: border-color .25s, color .25s; text-transform: uppercase; }
     .btn-ghost:hover { border-color: var(--text); }
-    .hero-scroll-hint { position: absolute; bottom: 6.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: .5rem; opacity: 0; animation: fadeUp 1s 1.2s forwards; transition: opacity 0.4s ease; }
+    .hero-scroll-hint { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: .5rem; opacity: 0; animation: fadeUp 1s 1.2s forwards; transition: opacity 0.4s ease; }
     .hero-scroll-hint.hidden { opacity: 0 !important; pointer-events: none; }
     .hero-scroll-hint span { font-family: 'Share Tech Mono', monospace; font-size: .62rem; letter-spacing: .3em; color: var(--muted); text-transform: uppercase; }
     .scroll-line { width: 1px; height: 48px; background: linear-gradient(to bottom, var(--amber), transparent); animation: scrollPulse 2s infinite; }
 
     /* MARQUEE */
     .marquee-wrap { overflow: hidden; border-top: 1px solid rgba(212,135,10,.15); border-bottom: 1px solid rgba(212,135,10,.15); padding: .8rem 0; background: var(--mud); }
-    .marquee-track { display: flex; gap: 3rem; animation: marquee 22s linear infinite; white-space: nowrap; width: max-content; will-change: transform; -webkit-transform: translateZ(0); transform: translateZ(0); }
+    .marquee-track { display: flex; gap: 3rem; animation: marquee 22s linear infinite; white-space: nowrap; width: max-content; }
     .marquee-track span { font-family: 'Bebas Neue', sans-serif; font-size: 1rem; letter-spacing: .25em; color: var(--muted); }
     .marquee-track span.accent { color: var(--amber); }
-    @keyframes marquee { 0% { -webkit-transform: translateX(0); transform: translateX(0); } 100% { -webkit-transform: translateX(-50%); transform: translateX(-50%); } }
 
     /* SECTIONS */
     section { padding: 7rem 5vw; }
@@ -294,16 +293,6 @@
       .loop-accordion { flex-direction: column; height: auto !important; }
       .loop-panel { flex: none !important; height: 210px; transition: height .55s cubic-bezier(.4,0,.2,1); }
       .loop-panel.is-active { height: 380px; }
-      /* Fix 2: clip idle description to ~1 line (~5-6 words) on mobile when collapsed */
-      .lp-desc-idle {
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        font-size: .8rem;
-      }
-      /* When active the idle layer is hidden anyway, but keep full text readable */
-      .loop-panel.is-active .lp-desc-idle { display: none; }
     }
     @media (max-width: 640px) {
       .loop-panel { height: 180px; }
@@ -330,8 +319,7 @@
     .role-tag { font-family: 'Share Tech Mono', monospace; font-size: .64rem; letter-spacing: .35em; color: var(--green-neon); text-transform: uppercase; margin-bottom: .8rem; display: block; }
     .role-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: .06em; color: var(--white); margin-bottom: .7rem; }
     .role-card p { font-size: .95rem; line-height: 1.65; color: var(--muted); }
-    .role-bar { margin-top: 1.2rem; height: 2px; background: rgba(212,135,10,.15); position: relative; }
-    .role-bar-fill { position: absolute; top: 0; left: 0; height: 100%; background: linear-gradient(to right, var(--amber), var(--green)); transition: width 1.2s ease; }
+    /* role bars removed */
 
     /* ECONOMY */
     #economy { background: var(--mud); display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: center; }
@@ -421,24 +409,11 @@
     /* KEYFRAMES */
     @keyframes fadeUp { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
     @keyframes scrollPulse { 0%,100%{opacity:.4} 50%{opacity:1} }
+    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
     @keyframes shimmer { 0%{left:-100%} 100%{left:200%} }
 
     /* RESPONSIVE */
-    /* HAMBURGER for mobile nav */
-    .nav-hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:38px;height:38px;background:transparent;border:1px solid rgba(212,135,10,.3);cursor:pointer;padding:8px;transition:border-color .25s;flex-shrink:0;}
-    .nav-hamburger:hover{border-color:var(--amber);}
-    .nav-hamburger span{display:block;width:100%;height:1.5px;background:var(--amber);transition:transform .3s ease,opacity .3s ease;transform-origin:center;}
-    .nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
-    .nav-hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
-    .nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
-    .mobile-nav{position:fixed;top:0;left:0;right:0;background:rgba(6,4,2,.97);backdrop-filter:blur(20px);z-index:490;padding:6rem 2rem 2.5rem;display:flex;flex-direction:column;gap:0;transform:translateY(-100%);transition:transform .4s cubic-bezier(.4,0,.2,1);border-bottom:1px solid rgba(212,135,10,.2);}
-    .mobile-nav.open{transform:translateY(0);}
-    .mobile-nav a{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.08em;color:var(--muted);text-decoration:none;text-transform:uppercase;padding:.9rem 0;border-bottom:1px solid rgba(212,135,10,.08);transition:color .2s,padding-left .2s;display:block;}
-    .mobile-nav a:hover{color:var(--amber-glow);padding-left:.6rem;}
-    .mobile-nav-cta{margin-top:1.5rem;display:flex;flex-direction:column;gap:.7rem;}
-    .mobile-nav-cta button{width:100%;padding:.9rem;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;}
-
-    @media (max-width: 900px) { .nav-hamburger{display:flex;} }
+    @media (max-width: 1100px) { .roles-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 900px) {
       nav { padding: 1.2rem 1.5rem; }
       .nav-links { display: none; }
@@ -492,23 +467,8 @@
   <div class="nav-right">
     <button class="nav-wip" onclick="window.location.href='wip.html'">⬡ DIP</button>
     <button class="nav-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Join Waitlist</button>
-    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" onclick="toggleMobileNav()">
-      <span></span><span></span><span></span>
-    </button>
   </div>
 </nav>
-
-<!-- MOBILE NAV -->
-<div class="mobile-nav" id="mobile-nav">
-  <a href="#world" onclick="closeMobileNav()">The World</a>
-  <a href="#loop" onclick="closeMobileNav()">Gameplay</a>
-  <a href="#roles" onclick="closeMobileNav()">Roles</a>
-  <a href="#philosophy" onclick="closeMobileNav()">Philosophy</a>
-  <div class="mobile-nav-cta">
-    <button class="btn-primary" onclick="closeMobileNav();document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Join the Fight</button>
-    <button class="btn-ghost" onclick="closeMobileNav();window.location.href='wip.html'">⬡ Dev In Progress</button>
-  </div>
-</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -578,7 +538,7 @@
   <div class="loop-accordion reveal" id="loop-accordion">
 
     <div class="loop-panel" data-key="harvest">
-      <video class="lp-video" src="Videos/Harvest.mp4" loop muted playsinline preload="none"></video>
+      <video class="lp-video" src="videos/Harvest.mp4" loop muted playsinline preload="none"></video>
       <div class="lp-scrim"></div>
       <div class="lp-top-bar"></div>
       <div class="lp-idle">
@@ -595,7 +555,7 @@
     </div>
 
     <div class="loop-panel" data-key="roll">
-      <video class="lp-video" src="Videos/Roll.mp4" loop muted playsinline preload="none"></video>
+      <video class="lp-video" src="videos/Roll.mp4" loop muted playsinline preload="none"></video>
       <div class="lp-scrim"></div>
       <div class="lp-top-bar"></div>
       <div class="lp-idle">
@@ -612,7 +572,7 @@
     </div>
 
     <div class="loop-panel" data-key="escort">
-      <video class="lp-video" src="Videos/Escort.mp4" loop muted playsinline preload="none"></video>
+      <video class="lp-video" src="videos/Escort.mp4" loop muted playsinline preload="none"></video>
       <div class="lp-scrim"></div>
       <div class="lp-top-bar"></div>
       <div class="lp-idle">
@@ -629,7 +589,7 @@
     </div>
 
     <div class="loop-panel" data-key="bank">
-      <video class="lp-video" src="Videos/Bank.mp4" loop muted playsinline preload="none"></video>
+      <video class="lp-video" src="videos/Bank.mp4" loop muted playsinline preload="none"></video>
       <div class="lp-scrim"></div>
       <div class="lp-top-bar"></div>
       <div class="lp-idle">
@@ -662,7 +622,6 @@
         <span class="role-tag">Role 01</span>
         <h3>Defender</h3>
         <p>Masters of territory. Defenders anchor your base perimeter, manage turret deployment, and intercept enemy carriers with precision knockback.</p>
-        <div class="role-bar"><div class="role-bar-fill" style="width:0%" data-width="85%"></div></div>
       </div>
     </div>
     <!-- ATTACKER -->
@@ -672,7 +631,6 @@
         <span class="role-tag">Role 02</span>
         <h3>Attacker</h3>
         <p>Born to disrupt. Attackers slash into enemy formations, strip carried dung from opponents, and create chaos that turns the tide of any escort.</p>
-        <div class="role-bar"><div class="role-bar-fill" style="width:0%" data-width="93%"></div></div>
       </div>
     </div>
     <!-- SCOUT -->
@@ -682,7 +640,6 @@
         <span class="role-tag">Role 03</span>
         <h3>Scout</h3>
         <p>Information is the ultimate weapon. Scouts reveal threats before they manifest, track enemy positioning, and open flanking lanes through dark terrain.</p>
-        <div class="role-bar"><div class="role-bar-fill" style="width:0%" data-width="72%"></div></div>
       </div>
     </div>
     <!-- TRAPPER -->
@@ -692,7 +649,6 @@
         <span class="role-tag">Role 04</span>
         <h3>Trapper</h3>
         <p>Patience is a weapon. Trappers lay hidden snares along choke points, redirect enemy traffic, and create devastating kill zones around objectives.</p>
-        <div class="role-bar"><div class="role-bar-fill" style="width:0%" data-width="78%"></div></div>
       </div>
     </div>
     <!-- STEALTH -->
@@ -702,7 +658,6 @@
         <span class="role-tag">Role 05</span>
         <h3>Stealth</h3>
         <p>Unseen. Unstoppable. Stealth beetles dissolve into shadow, slip through enemy lines undetected, and strike the moment their guard drops.</p>
-        <div class="role-bar"><div class="role-bar-fill" style="width:0%" data-width="68%"></div></div>
       </div>
     </div>
     <!-- STORM -->
@@ -712,7 +667,6 @@
         <span class="role-tag">Role 06</span>
         <h3>Storm</h3>
         <p>Elemental fury in an exoskeleton. Storm beetles generate electromagnetic pulses that disrupt enemy abilities and shatter dung rolls on impact.</p>
-        <div class="role-bar"><div class="role-bar-fill" style="width:0%" data-width="88%"></div></div>
       </div>
     </div>
   </div>
@@ -780,22 +734,6 @@
 </footer>
 
 <script>
-/* ─── HAMBURGER MENU ─── */
-function toggleMobileNav() {
-  const btn = document.getElementById('nav-hamburger');
-  const nav = document.getElementById('mobile-nav');
-  btn.classList.toggle('open');
-  nav.classList.toggle('open');
-  document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
-}
-function closeMobileNav() {
-  const btn = document.getElementById('nav-hamburger');
-  const nav = document.getElementById('mobile-nav');
-  if (btn) btn.classList.remove('open');
-  if (nav) nav.classList.remove('open');
-  document.body.style.overflow = '';
-}
-
 /* ─── TOUCH DETECTION — hide cursor on mobile/tablet ─── */
 const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 if (isTouch) {
@@ -1107,20 +1045,6 @@ const scrollObs = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 revealEls.forEach(el => scrollObs.observe(el));
 
-/* ─── ROLE BARS on entry ─── */
-const barObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    const fill = e.target.querySelector('.role-bar-fill');
-    if (!fill) return;
-    if (e.isIntersecting) {
-      setTimeout(() => { fill.style.width = fill.dataset.width; }, 300);
-    } else {
-      fill.style.width = '0%';
-    }
-  });
-}, { threshold: 0.3 });
-document.querySelectorAll('.role-card').forEach(c => barObs.observe(c));
-
 /* ─── EMAIL STORAGE ─── */
 // Emails are stored in localStorage and optionally sent to Formspree.
 // To collect emails from ALL visitors (not just your own browser):
@@ -1203,7 +1127,7 @@ document.getElementById('admin-modal').addEventListener('click', e => {
 
 
 
-/* ─── LOOP ACCORDION — desktop hover | mobile tap, no cross-contamination ─── */
+/* ─── LOOP ACCORDION ─── */
 (function () {
   const accordion = document.getElementById('loop-accordion');
   if (!accordion) return;
@@ -1211,47 +1135,41 @@ document.getElementById('admin-modal').addEventListener('click', e => {
   let active = null;
 
   function activate(panel) {
-    if (active && active !== panel) {
-      active.classList.remove('is-active');
-      accordion.classList.remove('is-expanded');
+    if (active === panel) return;
+
+    if (active) {
       const oldVid = active.querySelector('.lp-video');
+      active.classList.remove('is-active');
       if (oldVid) oldVid.pause();
     }
-    if (active === panel) return;
+
     panel.classList.add('is-active');
-    accordion.classList.add('is-expanded');
+    accordion.classList.add('is-expanded'); // <-- Triggers the height expansion
+    
     const vid = panel.querySelector('.lp-video');
-    if (vid) { vid.currentTime = 0; vid.play().catch(() => {}); }
+    if (vid) {
+      vid.currentTime = 0;
+      vid.play().catch(() => {});
+    }
     active = panel;
   }
 
   function deactivateAll() {
     if (!active) return;
     active.classList.remove('is-active');
-    accordion.classList.remove('is-expanded');
+    accordion.classList.remove('is-expanded'); // <-- Collapses the height
+    
     const vid = active.querySelector('.lp-video');
     if (vid) { vid.pause(); vid.currentTime = 0; }
     active = null;
   }
 
-  if (isTouch) {
-    // MOBILE: tap only — no mouseenter/mouseleave interference
-    panels.forEach(panel => {
-      panel.addEventListener('click', e => {
-        e.stopPropagation();
-        if (active === panel) deactivateAll();
-        else activate(panel);
-      });
-    });
-    // Tap outside accordion collapses it
-    document.addEventListener('click', () => deactivateAll());
-  } else {
-    // DESKTOP: hover in/out
-    panels.forEach(panel => {
-      panel.addEventListener('mouseenter', () => activate(panel));
-    });
-    accordion.addEventListener('mouseleave', () => deactivateAll());
-  }
+  panels.forEach(panel => {
+    panel.addEventListener('mouseenter', () => activate(panel));
+  });
+
+  // Only collapse when the cursor fully leaves the accordion container
+  accordion.addEventListener('mouseleave', () => deactivateAll());
 })();
 
 

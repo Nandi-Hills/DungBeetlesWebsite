@@ -4,7 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DUNG BEETLES — Micro Battlefield</title>
+
+  <!-- SEO & Description -->
+  <meta name="description" content="Dung Beetles is a 5v5 objective-based action game. Collect, roll, escort, and bank your way to victory in the most intense six-legged showdown nature has ever seen.">
+  <meta name="theme-color" content="#d4870a">
+
+  <!-- Open Graph (Discord, WhatsApp, Facebook previews) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DUNG BEETLES — Micro Battlefield">
+  <meta property="og:description" content="5v5 · Objective Action · Micro Battlefield. Two factions. One dung pile. Join the swarm.">
+  <meta property="og:url" content="https://yourdomain.com"><!-- ← replace with your real URL -->
+  <meta property="og:image" content="https://yourdomain.com/og-image.jpg"><!-- ← replace with a real preview image -->
+
+  <!-- Twitter / X card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DUNG BEETLES — Micro Battlefield">
+  <meta name="twitter:description" content="5v5 objective action. Collect dung. Roll it. Bank it. Defend it. Join the waitlist.">
+  <meta name="twitter:image" content="https://yourdomain.com/og-image.jpg"><!-- ← same image -->
+
+  <!-- Favicon — inline SVG beetle, no external file needed -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23060402'/><ellipse cx='50' cy='62' rx='26' ry='30' fill='%231e1208' stroke='%23d4870a' stroke-width='3'/><line x1='50' y1='36' x2='50' y2='90' stroke='%23d4870a' stroke-width='1.5' opacity='.5'/><ellipse cx='50' cy='40' rx='16' ry='12' fill='%232a1a08' stroke='%23d4870a' stroke-width='2.5'/><ellipse cx='50' cy='24' rx='11' ry='9' fill='%233a2510' stroke='%23d4870a' stroke-width='2'/><circle cx='43' cy='19' r='4' fill='%23aaff44'/><circle cx='57' cy='19' r='4' fill='%23aaff44'/><line x1='50' y1='16' x2='44' y2='4' stroke='%23d4870a' stroke-width='2'/><line x1='50' y1='16' x2='56' y2='4' stroke='%23d4870a' stroke-width='2'/><line x1='26' y1='50' x2='10' y2='42' stroke='%23d4870a' stroke-width='2'/><line x1='26' y1='62' x2='8' y2='62' stroke='%23d4870a' stroke-width='2'/><line x1='74' y1='50' x2='90' y2='42' stroke='%23d4870a' stroke-width='2'/><line x1='74' y1='62' x2='92' y2='62' stroke='%23d4870a' stroke-width='2'/></svg>">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -41,7 +63,47 @@
       opacity: .035; pointer-events: none; z-index: 9000;
     }
 
-    /* NAV */
+    /* NAV — Hamburger for mobile */
+    .nav-hamburger {
+      display: none; flex-direction: column; justify-content: center; gap: 5px;
+      width: 38px; height: 38px; background: transparent;
+      border: 1px solid rgba(212,135,10,.3); cursor: none; padding: 8px;
+      transition: border-color .25s;
+    }
+    .nav-hamburger:hover { border-color: var(--amber); }
+    .nav-hamburger span {
+      display: block; width: 100%; height: 1.5px; background: var(--amber);
+      transition: transform .3s ease, opacity .3s ease;
+      transform-origin: center;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Mobile nav overlay */
+    .mobile-nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(6,4,2,.97); backdrop-filter: blur(20px);
+      z-index: 490; padding: 6rem 2rem 2.5rem;
+      display: flex; flex-direction: column; gap: 0;
+      transform: translateY(-100%); transition: transform .4s cubic-bezier(.4,0,.2,1);
+      border-bottom: 1px solid rgba(212,135,10,.2);
+    }
+    .mobile-nav.open { transform: translateY(0); }
+    .mobile-nav a {
+      font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: .08em;
+      color: var(--muted); text-decoration: none; text-transform: uppercase;
+      padding: .9rem 0; border-bottom: 1px solid rgba(212,135,10,.08);
+      transition: color .2s, padding-left .2s;
+    }
+    .mobile-nav a:hover { color: var(--amber-glow); padding-left: .6rem; }
+    .mobile-nav-cta {
+      margin-top: 1.5rem; display: flex; flex-direction: column; gap: .7rem;
+    }
+    .mobile-nav-cta button {
+      width: 100%; padding: .9rem; font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem; letter-spacing: .18em; text-transform: uppercase; cursor: none;
+    }
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 500;
       display: flex; align-items: center; justify-content: space-between;
@@ -79,10 +141,10 @@
     .nav-cta:hover { background: var(--amber); color: var(--bg); }
 
     /* HERO */
-    #hero { position: relative; height: 115vh; min-height: 740px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    #hero { position: relative; height: 95vh; min-height: 620px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
     #hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
     .hero-bg-glow { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 55% at 50% 60%, rgba(212,135,10,.18) 0%, transparent 70%); pointer-events: none; }
-    .hero-content { position: relative; z-index: 2; text-align: center; padding: 0 2rem 6rem; }
+    .hero-content { position: relative; z-index: 2; text-align: center; padding: 0 2rem 2rem; }
     .hero-eyebrow { font-family: 'Share Tech Mono', monospace; font-size: .72rem; letter-spacing: .45em; color: var(--green-neon); text-transform: uppercase; opacity: 0; animation: fadeUp .8s .3s forwards; }
     .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(5rem, 13vw, 13rem); line-height: .88; letter-spacing: -.01em; color: var(--white); text-shadow: 0 0 80px rgba(212,135,10,.35); opacity: 0; animation: fadeUp .9s .5s forwards; }
     .hero-title .line2 { color: transparent; -webkit-text-stroke: 1.5px var(--amber); }
@@ -92,7 +154,7 @@
     .btn-primary:hover { background: var(--amber-glow); box-shadow: 0 0 40px rgba(245,166,35,.5); }
     .btn-ghost { background: transparent; color: var(--text); font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: .18em; padding: .85rem 2.6rem; border: 1px solid rgba(232,220,200,.25); cursor: none; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); transition: border-color .25s, color .25s; text-transform: uppercase; }
     .btn-ghost:hover { border-color: var(--text); }
-    .hero-scroll-hint { position: absolute; bottom: 6.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: .5rem; opacity: 0; animation: fadeUp 1s 1.2s forwards; transition: opacity 0.4s ease; }
+    .hero-scroll-hint { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: .5rem; opacity: 0; animation: fadeUp 1s 1.2s forwards; transition: opacity 0.4s ease; }
     .hero-scroll-hint.hidden { opacity: 0 !important; pointer-events: none; }
     .hero-scroll-hint span { font-family: 'Share Tech Mono', monospace; font-size: .62rem; letter-spacing: .3em; color: var(--muted); text-transform: uppercase; }
     .scroll-line { width: 1px; height: 48px; background: linear-gradient(to bottom, var(--amber), transparent); animation: scrollPulse 2s infinite; }
@@ -319,8 +381,7 @@
     .role-tag { font-family: 'Share Tech Mono', monospace; font-size: .64rem; letter-spacing: .35em; color: var(--green-neon); text-transform: uppercase; margin-bottom: .8rem; display: block; }
     .role-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: .06em; color: var(--white); margin-bottom: .7rem; }
     .role-card p { font-size: .95rem; line-height: 1.65; color: var(--muted); }
-    .role-bar { margin-top: 1.2rem; height: 2px; background: rgba(212,135,10,.15); position: relative; }
-    .role-bar-fill { position: absolute; top: 0; left: 0; height: 100%; background: linear-gradient(to right, var(--amber), var(--green)); transition: width 1.2s ease; }
+    /* role bar removed */
 
     /* ECONOMY */
     #economy { background: var(--mud); display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: center; }
@@ -407,7 +468,29 @@
     .reveal-left.visible { opacity: 1; transform: translateX(0); }
     .reveal-right.visible { opacity: 1; transform: translateX(0); }
 
+    /* FIX 10 — Max-width on very wide screens */
+    @media (min-width: 1600px) {
+      section { padding-left: max(5vw, calc((100% - 1480px) / 2)); padding-right: max(5vw, calc((100% - 1480px) / 2)); }
+      .stats-bar { padding-inline: max(0px, calc((100% - 1480px) / 2)); }
+      footer { padding-left: max(5vw, calc((100% - 1480px) / 2)); padding-right: max(5vw, calc((100% - 1480px) / 2)); }
+    }
+
+    /* FIX 8 — Respect reduced-motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .marquee-track { animation: none; }
+      .scroll-line { animation: none; opacity: .5; }
+      .nav-wip::before { animation: none; }
+      .np-dot { animation: none !important; background: var(--green-neon); }
+      .reveal, .reveal-left, .reveal-right { opacity: 1; transform: none; }
+    }
+
     /* KEYFRAMES */
+    @keyframes pulse { 0%,100%{opacity:1;box-shadow:0 0 6px var(--green-neon)} 50%{opacity:.5;box-shadow:0 0 12px var(--green-neon)} }
     @keyframes fadeUp { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
     @keyframes scrollPulse { 0%,100%{opacity:.4} 50%{opacity:1} }
     @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
@@ -418,6 +501,7 @@
     @media (max-width: 900px) {
       nav { padding: 1.2rem 1.5rem; }
       .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
       #world, #economy { grid-template-columns: 1fr; }
       .stats-bar { flex-wrap: wrap; }
       .stat { flex: 0 0 50%; }
@@ -468,8 +552,23 @@
   <div class="nav-right">
     <button class="nav-wip" onclick="window.location.href='wip.html'">⬡ DIP</button>
     <button class="nav-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Join Waitlist</button>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" onclick="toggleMobileNav()">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobile-nav">
+  <a href="#world" onclick="closeMobileNav()">The World</a>
+  <a href="#loop" onclick="closeMobileNav()">Gameplay</a>
+  <a href="#roles" onclick="closeMobileNav()">Roles</a>
+  <a href="#philosophy" onclick="closeMobileNav()">Philosophy</a>
+  <div class="mobile-nav-cta">
+    <button class="btn-primary" onclick="closeMobileNav(); document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Join the Fight</button>
+    <button class="btn-ghost" onclick="closeMobileNav(); window.location.href='wip.html'">⬡ Dev In Progress</button>
+  </div>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -623,7 +722,7 @@
         <span class="role-tag">Role 01</span>
         <h3>Defender</h3>
         <p>Masters of territory. Defenders anchor your base perimeter, manage turret deployment, and intercept enemy carriers with precision knockback.</p>
-        <div class="role-bar"><div class="role-bar-fill" style="width:0%" data-width="85%"></div></div>
+        <div class="role-bar-fill" style="display:none" data-width="85%"></div>
       </div>
     </div>
     <!-- ATTACKER -->
@@ -633,7 +732,7 @@
         <span class="role-tag">Role 02</span>
         <h3>Attacker</h3>
         <p>Born to disrupt. Attackers slash into enemy formations, strip carried dung from opponents, and create chaos that turns the tide of any escort.</p>
-        <div class="role-bar"><div class="role-bar-fill" style="width:0%" data-width="93%"></div></div>
+        <div class="role-bar-fill" style="display:none" data-width="93%"></div>
       </div>
     </div>
     <!-- SCOUT -->
@@ -643,7 +742,7 @@
         <span class="role-tag">Role 03</span>
         <h3>Scout</h3>
         <p>Information is the ultimate weapon. Scouts reveal threats before they manifest, track enemy positioning, and open flanking lanes through dark terrain.</p>
-        <div class="role-bar"><div class="role-bar-fill" style="width:0%" data-width="72%"></div></div>
+        <div class="role-bar-fill" style="display:none" data-width="72%"></div>
       </div>
     </div>
     <!-- TRAPPER -->
@@ -653,7 +752,7 @@
         <span class="role-tag">Role 04</span>
         <h3>Trapper</h3>
         <p>Patience is a weapon. Trappers lay hidden snares along choke points, redirect enemy traffic, and create devastating kill zones around objectives.</p>
-        <div class="role-bar"><div class="role-bar-fill" style="width:0%" data-width="78%"></div></div>
+        <div class="role-bar-fill" style="display:none" data-width="78%"></div>
       </div>
     </div>
     <!-- STEALTH -->
@@ -663,7 +762,7 @@
         <span class="role-tag">Role 05</span>
         <h3>Stealth</h3>
         <p>Unseen. Unstoppable. Stealth beetles dissolve into shadow, slip through enemy lines undetected, and strike the moment their guard drops.</p>
-        <div class="role-bar"><div class="role-bar-fill" style="width:0%" data-width="68%"></div></div>
+        <div class="role-bar-fill" style="display:none" data-width="68%"></div>
       </div>
     </div>
     <!-- STORM -->
@@ -673,7 +772,7 @@
         <span class="role-tag">Role 06</span>
         <h3>Storm</h3>
         <p>Elemental fury in an exoskeleton. Storm beetles generate electromagnetic pulses that disrupt enemy abilities and shatter dung rolls on impact.</p>
-        <div class="role-bar"><div class="role-bar-fill" style="width:0%" data-width="88%"></div></div>
+        <div class="role-bar-fill" style="display:none" data-width="88%"></div>
       </div>
     </div>
   </div>
@@ -741,12 +840,29 @@
 </footer>
 
 <script>
-/* ─── TOUCH DETECTION — hide cursor on mobile/tablet ─── */
+/* ─── REDUCED MOTION CHECK ─── */
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ─── TOUCH DETECTION ─── */
 const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 if (isTouch) {
   document.getElementById('cursor').style.display = 'none';
   document.getElementById('cursor-ring').style.display = 'none';
   document.body.style.cursor = 'auto';
+}
+
+/* ─── HAMBURGER MENU ─── */
+function toggleMobileNav() {
+  const btn = document.getElementById('nav-hamburger');
+  const nav = document.getElementById('mobile-nav');
+  btn.classList.toggle('open');
+  nav.classList.toggle('open');
+  document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+}
+function closeMobileNav() {
+  document.getElementById('nav-hamburger').classList.remove('open');
+  document.getElementById('mobile-nav').classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 /* ─── CUSTOM CURSOR (desktop only) ─── */
@@ -761,7 +877,7 @@ if (!isTouch) {
     ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
     requestAnimationFrame(animCursor);
   })();
-  document.querySelectorAll('a, button, .role-card, .step, .pill').forEach(el => {
+  document.querySelectorAll('a, button, .role-card, .step, .pill, .loop-panel').forEach(el => {
     el.addEventListener('mouseenter', () => {
       cursor.style.transform = 'translate(-50%,-50%) scale(2)';
       ring.style.transform = 'translate(-50%,-50%) scale(1.5)';
@@ -775,19 +891,69 @@ if (!isTouch) {
   });
 }
 
+/* ─── CANVAS VISIBILITY HELPERS ─── */
+// Returns a controller {start, stop} for a rAF loop
+function makeLoop(drawFn) {
+  let rafId = null;
+  let inView = false;
+  let docVis = !document.hidden;
+  function tick() {
+    if (!inView || !docVis) { rafId = null; return; }
+    drawFn();
+    rafId = requestAnimationFrame(tick);
+  }
+  function start() { if (!rafId && inView && docVis) rafId = requestAnimationFrame(tick); }
+  function stop()  { if (rafId) { cancelAnimationFrame(rafId); rafId = null; } }
+  document.addEventListener('visibilitychange', () => {
+    docVis = !document.hidden;
+    docVis ? start() : stop();
+  });
+  return {
+    start,
+    stop,
+    observe(el) {
+      new IntersectionObserver(([e]) => {
+        inView = e.isIntersecting;
+        inView ? start() : stop();
+      }, { threshold: 0 }).observe(el);
+    }
+  };
+}
+
+/* ─── FIX 9: devicePixelRatio helper ─── */
+function setupHiDPI(canvas, logicalW, logicalH) {
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width  = logicalW * dpr;
+  canvas.height = logicalH * dpr;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  return ctx;
+}
+
 /* ─── HERO CANVAS — particles ─── */
 const hCanvas = document.getElementById('hero-canvas');
-const hCtx = hCanvas.getContext('2d');
-function resizeHero() { hCanvas.width = innerWidth; hCanvas.height = hCanvas.parentElement.offsetHeight; }
-resizeHero(); window.addEventListener('resize', resizeHero);
+let hCtx, hW, hH;
+function resizeHero() {
+  const dpr = window.devicePixelRatio || 1;
+  hW = innerWidth; hH = hCanvas.parentElement.offsetHeight;
+  hCanvas.width  = hW * dpr;
+  hCanvas.height = hH * dpr;
+  hCtx = hCanvas.getContext('2d');
+  hCtx.scale(dpr, dpr);
+}
+resizeHero();
+window.addEventListener('resize', resizeHero);
+
 const particles = Array.from({length: 80}, () => ({
   x: Math.random() * innerWidth, y: Math.random() * innerHeight,
   r: Math.random() * 2.5 + .5, vx: (Math.random()-.5)*.4, vy: (Math.random()-.5)*.4,
   alpha: Math.random()*.5+.15,
   color: Math.random()>.6 ? '#d4870a' : Math.random()>.4 ? '#7ec845' : '#6b5c45'
 }));
-(function drawHero() {
-  hCtx.clearRect(0, 0, hCanvas.width, hCanvas.height);
+
+const heroLoop = makeLoop(() => {
+  if (prefersReducedMotion) return;
+  hCtx.clearRect(0, 0, hW, hH);
   particles.forEach((p, i) => {
     particles.slice(i+1).forEach(q => {
       const d = Math.hypot(p.x-q.x, p.y-q.y);
@@ -796,16 +962,17 @@ const particles = Array.from({length: 80}, () => ({
     hCtx.save(); hCtx.globalAlpha = p.alpha; hCtx.fillStyle = p.color;
     hCtx.beginPath(); hCtx.arc(p.x, p.y, p.r, 0, Math.PI*2); hCtx.fill(); hCtx.restore();
     p.x += p.vx; p.y += p.vy;
-    if (p.x < 0) p.x = hCanvas.width; if (p.x > hCanvas.width) p.x = 0;
-    if (p.y < 0) p.y = hCanvas.height; if (p.y > hCanvas.height) p.y = 0;
+    if (p.x < 0) p.x = hW; if (p.x > hW) p.x = 0;
+    if (p.y < 0) p.y = hH; if (p.y > hH) p.y = 0;
   });
-  requestAnimationFrame(drawHero);
-})();
+});
+heroLoop.observe(hCanvas);
 
 /* ─── WORLD CANVAS — beetle ─── */
 const wCanvas = document.getElementById('world-canvas');
-const wCtx = wCanvas.getContext('2d');
+const wCtx = setupHiDPI(wCanvas, 480, 480);
 let wt = 0;
+
 function drawBeetle(ctx, cx, cy, scale, t) {
   ctx.save(); ctx.translate(cx, cy + Math.sin(t*.03)*4); ctx.scale(scale, scale);
   const grd = ctx.createRadialGradient(0,0,10,0,0,80);
@@ -848,7 +1015,8 @@ function drawDungBall(ctx, cx, cy, r, t) {
   for(let i=0;i<5;i++){const a=(i/5)*Math.PI; ctx.beginPath(); ctx.arc(0,0,r*.7,a,a+.9); ctx.stroke();}
   ctx.restore();
 }
-(function animWorld() {
+
+const worldLoop = makeLoop(() => {
   wCtx.clearRect(0,0,480,480); wCtx.fillStyle='#060402'; wCtx.fillRect(0,0,480,480);
   wCtx.strokeStyle='rgba(212,135,10,.05)'; wCtx.lineWidth=1;
   for(let i=0;i<480;i+=40){wCtx.beginPath();wCtx.moveTo(i,0);wCtx.lineTo(i,480);wCtx.stroke();wCtx.beginPath();wCtx.moveTo(0,i);wCtx.lineTo(480,i);wCtx.stroke();}
@@ -856,13 +1024,14 @@ function drawDungBall(ctx, cx, cy, r, t) {
   gg.addColorStop(0,'rgba(212,135,10,.12)'); gg.addColorStop(1,'transparent');
   wCtx.fillStyle=gg; wCtx.fillRect(0,0,480,480);
   drawDungBall(wCtx,240,360,38,wt); drawBeetle(wCtx,240,240,1.15,wt); wt++;
-  requestAnimationFrame(animWorld);
-})();
+});
+worldLoop.observe(wCanvas);
 
-/* ─── ROLE CANVASES — unique beetle art per role ─── */
+/* ─── ROLE CANVASES — with DPR fix and visibility ─── */
 function drawRoleBeetle(canvas, role) {
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
+  const logW = 360, logH = 160;
+  const ctx = setupHiDPI(canvas, logW, logH);
+  const W = logW, H = logH;
   let frame = 0;
   const colors = {
     defender: { primary: '#d4870a', accent: '#aaff44', bg: 'rgba(212,135,10,.08)' },
@@ -874,164 +1043,50 @@ function drawRoleBeetle(canvas, role) {
   };
   const c = colors[role] || colors.defender;
 
-  function draw() {
+  function drawFrame() {
     ctx.clearRect(0,0,W,H);
-    // bg atmosphere
-    const bg = ctx.createRadialGradient(W/2, H/2, 10, W/2, H/2, 100);
-    bg.addColorStop(0, c.bg); bg.addColorStop(1, 'transparent');
-    ctx.fillStyle = '#060402'; ctx.fillRect(0,0,W,H);
-    ctx.fillStyle = bg; ctx.fillRect(0,0,W,H);
-
-    // grid dots
-    ctx.fillStyle = 'rgba(212,135,10,.04)';
-    for(let x=20; x<W; x+=20) for(let y=10; y<H; y+=20) { ctx.beginPath(); ctx.arc(x,y,1,0,Math.PI*2); ctx.fill(); }
-
-    ctx.save();
-    ctx.translate(W/2, H/2 + Math.sin(frame*.04)*3);
-
-    const bob = 0;
-    // body
-    ctx.fillStyle = '#1a0e04'; ctx.strokeStyle = c.primary; ctx.lineWidth = 1.2;
-    ctx.beginPath(); ctx.ellipse(0, 8, 26, 34, 0, 0, Math.PI*2); ctx.fill(); ctx.stroke();
-    // shell sheen
-    const sh = ctx.createLinearGradient(-18,-5,12,32);
-    sh.addColorStop(0, c.bg); sh.addColorStop(1, 'transparent');
-    ctx.fillStyle = sh; ctx.beginPath(); ctx.ellipse(0,8,26,34,0,0,Math.PI*2); ctx.fill();
-    // shell line
-    ctx.strokeStyle = c.primary+'55'; ctx.lineWidth = .8;
+    const bg = ctx.createRadialGradient(W/2,H/2,10,W/2,H/2,100);
+    bg.addColorStop(0,c.bg); bg.addColorStop(1,'transparent');
+    ctx.fillStyle='#060402'; ctx.fillRect(0,0,W,H);
+    ctx.fillStyle=bg; ctx.fillRect(0,0,W,H);
+    ctx.fillStyle='rgba(212,135,10,.04)';
+    for(let x=20;x<W;x+=20) for(let y=10;y<H;y+=20){ctx.beginPath();ctx.arc(x,y,1,0,Math.PI*2);ctx.fill();}
+    ctx.save(); ctx.translate(W/2, H/2+Math.sin(frame*.04)*3);
+    ctx.fillStyle='#1a0e04'; ctx.strokeStyle=c.primary; ctx.lineWidth=1.2;
+    ctx.beginPath(); ctx.ellipse(0,8,26,34,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
+    const sh=ctx.createLinearGradient(-18,-5,12,32);
+    sh.addColorStop(0,c.bg); sh.addColorStop(1,'transparent');
+    ctx.fillStyle=sh; ctx.beginPath(); ctx.ellipse(0,8,26,34,0,0,Math.PI*2); ctx.fill();
+    ctx.strokeStyle=c.primary+'55'; ctx.lineWidth=.8;
     ctx.beginPath(); ctx.moveTo(0,-24); ctx.lineTo(0,42); ctx.stroke();
-    // thorax
-    ctx.fillStyle = '#2a1a08'; ctx.strokeStyle = c.primary; ctx.lineWidth = 1;
+    ctx.fillStyle='#2a1a08'; ctx.strokeStyle=c.primary; ctx.lineWidth=1;
     ctx.beginPath(); ctx.ellipse(0,-16,17,13,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
-    // head
-    ctx.fillStyle = '#3a2510'; ctx.beginPath(); ctx.ellipse(0,-31,12,10,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
-    // eyes
-    ctx.fillStyle = c.accent; ctx.shadowColor = c.accent; ctx.shadowBlur = 6;
+    ctx.fillStyle='#3a2510'; ctx.beginPath(); ctx.ellipse(0,-31,12,10,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
+    ctx.fillStyle=c.accent; ctx.shadowColor=c.accent; ctx.shadowBlur=6;
     ctx.beginPath(); ctx.arc(-5,-34,2.5,0,Math.PI*2); ctx.fill();
-    ctx.beginPath(); ctx.arc(5,-34,2.5,0,Math.PI*2); ctx.fill();
-    ctx.shadowBlur = 0;
-
-    // role-specific elements
-    if (role === 'defender') {
-      // shield
-      ctx.strokeStyle = c.primary; ctx.lineWidth = 1.8; ctx.fillStyle = 'rgba(212,135,10,.12)';
-      ctx.beginPath(); ctx.moveTo(-20, -5); ctx.lineTo(-36,-5); ctx.lineTo(-36,14); ctx.lineTo(-20,24); ctx.closePath(); ctx.fill(); ctx.stroke();
-      ctx.strokeStyle = c.primary+'88'; ctx.lineWidth = .8;
-      ctx.beginPath(); ctx.moveTo(-28,-5); ctx.lineTo(-28,20); ctx.stroke();
-      // fort indicators
-      ctx.fillStyle = c.primary; ctx.shadowColor = c.primary; ctx.shadowBlur = 4;
-      ctx.beginPath(); ctx.arc(22,-2,3,0,Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(26,10,3,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
-    }
-    if (role === 'attacker') {
-      // extended claws
-      const cs = Math.sin(frame*.06)*5;
-      [[- 22,-8+cs,-40,-18+cs],[-18,2,-38,6],[22,-8-cs,40,-18-cs],[18,2,38,6]].forEach(([x1,y1,x2,y2])=>{
-        ctx.strokeStyle=c.primary; ctx.lineWidth=2;
-        ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
-        ctx.fillStyle=c.accent; ctx.beginPath(); ctx.arc(x2,y2,3,0,Math.PI*2); ctx.fill();
-      });
-      // speed lines
-      ctx.strokeStyle='rgba(255,107,53,.2)'; ctx.lineWidth=.8;
-      for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(-48+i*6,-30+i*5);ctx.lineTo(-35+i*6,-22+i*5);ctx.stroke();}
-    }
-    if (role === 'scout') {
-      // large radar eye
-      ctx.strokeStyle = c.accent; ctx.lineWidth = 1.2; ctx.shadowColor = c.accent; ctx.shadowBlur = 8;
-      ctx.beginPath(); ctx.arc(26, -8, 14, 0, Math.PI*2); ctx.stroke(); ctx.shadowBlur=0;
-      const pulse = (Math.sin(frame*.07)+1)*.5;
-      ctx.strokeStyle = c.accent; ctx.globalAlpha = pulse*.6;
-      ctx.beginPath(); ctx.arc(26,-8, 14+pulse*6, 0, Math.PI*2); ctx.stroke(); ctx.globalAlpha=1;
-      ctx.fillStyle = c.accent; ctx.shadowColor=c.accent; ctx.shadowBlur=5;
-      ctx.beginPath(); ctx.arc(26,-8,4,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
-      // scan line
-      const ang = frame*.04;
-      ctx.strokeStyle=c.accent+'66'; ctx.lineWidth=1;
-      ctx.beginPath(); ctx.moveTo(26,-8); ctx.lineTo(26+Math.cos(ang)*14,-8+Math.sin(ang)*14); ctx.stroke();
-    }
-    if (role === 'trapper') {
-      // trap mechanism arms
-      ctx.strokeStyle=c.primary; ctx.lineWidth=1.5;
-      [[-28,14,-42,28],[-24,22,-30,38],[28,14,42,28],[24,22,30,38]].forEach(([x1,y1,x2,y2])=>{
-        ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
-      });
-      // trap teeth
-      ctx.fillStyle='rgba(196,168,74,.3)'; ctx.strokeStyle=c.primary; ctx.lineWidth=1;
-      ctx.beginPath(); ctx.moveTo(-42,28); ctx.lineTo(-38,20); ctx.lineTo(-34,28); ctx.lineTo(-30,20); ctx.lineTo(-26,28); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(42,28); ctx.lineTo(38,20); ctx.lineTo(34,28); ctx.lineTo(30,20); ctx.lineTo(26,28); ctx.stroke();
-      // glowing mine
-      const mp=(Math.sin(frame*.05)+1)*.5;
-      ctx.fillStyle=c.primary; ctx.shadowColor=c.primary; ctx.shadowBlur=4+mp*8;
-      ctx.beginPath(); ctx.arc(0,46,5,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
-    }
-    if (role === 'stealth') {
-      // shadow/cloak aura
-      const sph = Math.sin(frame*.03)*.3+.5;
-      ctx.globalAlpha = sph*.4;
-      const scloak = ctx.createRadialGradient(0,8,5,0,8,44);
-      scloak.addColorStop(0,'rgba(107,140,170,.0)'); scloak.addColorStop(.6,'rgba(107,140,170,.3)'); scloak.addColorStop(1,'transparent');
-      ctx.fillStyle=scloak; ctx.beginPath(); ctx.ellipse(0,8,44,52,0,0,Math.PI*2); ctx.fill();
-      ctx.globalAlpha=1;
-      // shimmer particles
-      for(let i=0;i<5;i++){
-        const a=(frame*.03+i*1.2), r=30+i*4;
-        const px=Math.cos(a)*r*.8, py=Math.sin(a)*r*.4+8;
-        const pp=(Math.sin(frame*.05+i)+1)*.5;
-        ctx.fillStyle=c.accent; ctx.globalAlpha=pp*.5;
-        ctx.beginPath(); ctx.arc(px,py,1.5,0,Math.PI*2); ctx.fill(); ctx.globalAlpha=1;
-      }
-      // dim eyes (stealth mode)
-      ctx.fillStyle=c.accent+'66'; ctx.beginPath(); ctx.arc(-5,-34,2,0,Math.PI*2); ctx.fill();
-      ctx.beginPath(); ctx.arc(5,-34,2,0,Math.PI*2); ctx.fill();
-    }
-    if (role === 'storm') {
-      // electric arcs
-      ctx.strokeStyle=c.primary; ctx.lineWidth=1.2; ctx.shadowColor=c.primary; ctx.shadowBlur=8;
-      const jitter=()=>(Math.random()-.5)*8;
-      for(let s=0;s<3;s++){
-        ctx.beginPath();
-        ctx.moveTo(-38+s*2, -10+s*8);
-        ctx.lineTo(-28+jitter(),-2+jitter());
-        ctx.lineTo(-18+jitter(), 6+jitter());
-        ctx.lineTo(-30, 18+s*4);
-        ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(38-s*2, -10+s*8);
-        ctx.lineTo(28+jitter(),-2+jitter());
-        ctx.lineTo(18+jitter(), 6+jitter());
-        ctx.lineTo(30, 18+s*4);
-        ctx.stroke();
-      }
-      ctx.shadowBlur=0;
-      // pulse ring
-      const pr=(frame%40)/40;
-      ctx.strokeStyle=c.primary; ctx.globalAlpha=(1-pr)*.5;
-      ctx.lineWidth=1.5; ctx.beginPath(); ctx.arc(0,4,28+pr*20,0,Math.PI*2); ctx.stroke();
-      ctx.globalAlpha=1;
-      // charged core glow
-      ctx.fillStyle=c.primary; ctx.shadowColor=c.primary; ctx.shadowBlur=16;
-      ctx.beginPath(); ctx.arc(0,4,6,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
-    }
-
-    // antennae
+    ctx.beginPath(); ctx.arc(5,-34,2.5,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
+    if(role==='defender'){ctx.strokeStyle=c.primary;ctx.lineWidth=1.8;ctx.fillStyle='rgba(212,135,10,.12)';ctx.beginPath();ctx.moveTo(-20,-5);ctx.lineTo(-36,-5);ctx.lineTo(-36,14);ctx.lineTo(-20,24);ctx.closePath();ctx.fill();ctx.stroke();ctx.strokeStyle=c.primary+'88';ctx.lineWidth=.8;ctx.beginPath();ctx.moveTo(-28,-5);ctx.lineTo(-28,20);ctx.stroke();ctx.fillStyle=c.primary;ctx.shadowColor=c.primary;ctx.shadowBlur=4;ctx.beginPath();ctx.arc(22,-2,3,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(26,10,3,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;}
+    if(role==='attacker'){const cs=Math.sin(frame*.06)*5;[[-22,-8+cs,-40,-18+cs],[-18,2,-38,6],[22,-8-cs,40,-18-cs],[18,2,38,6]].forEach(([x1,y1,x2,y2])=>{ctx.strokeStyle=c.primary;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();ctx.fillStyle=c.accent;ctx.beginPath();ctx.arc(x2,y2,3,0,Math.PI*2);ctx.fill();});ctx.strokeStyle='rgba(255,107,53,.2)';ctx.lineWidth=.8;for(let i=0;i<4;i++){ctx.beginPath();ctx.moveTo(-48+i*6,-30+i*5);ctx.lineTo(-35+i*6,-22+i*5);ctx.stroke();}}
+    if(role==='scout'){ctx.strokeStyle=c.accent;ctx.lineWidth=1.2;ctx.shadowColor=c.accent;ctx.shadowBlur=8;ctx.beginPath();ctx.arc(26,-8,14,0,Math.PI*2);ctx.stroke();ctx.shadowBlur=0;const pulse=(Math.sin(frame*.07)+1)*.5;ctx.strokeStyle=c.accent;ctx.globalAlpha=pulse*.6;ctx.beginPath();ctx.arc(26,-8,14+pulse*6,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1;ctx.fillStyle=c.accent;ctx.shadowColor=c.accent;ctx.shadowBlur=5;ctx.beginPath();ctx.arc(26,-8,4,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;const ang=frame*.04;ctx.strokeStyle=c.accent+'66';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(26,-8);ctx.lineTo(26+Math.cos(ang)*14,-8+Math.sin(ang)*14);ctx.stroke();}
+    if(role==='trapper'){ctx.strokeStyle=c.primary;ctx.lineWidth=1.5;[[-28,14,-42,28],[-24,22,-30,38],[28,14,42,28],[24,22,30,38]].forEach(([x1,y1,x2,y2])=>{ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();});ctx.fillStyle='rgba(196,168,74,.3)';ctx.strokeStyle=c.primary;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(-42,28);ctx.lineTo(-38,20);ctx.lineTo(-34,28);ctx.lineTo(-30,20);ctx.lineTo(-26,28);ctx.stroke();ctx.beginPath();ctx.moveTo(42,28);ctx.lineTo(38,20);ctx.lineTo(34,28);ctx.lineTo(30,20);ctx.lineTo(26,28);ctx.stroke();const mp=(Math.sin(frame*.05)+1)*.5;ctx.fillStyle=c.primary;ctx.shadowColor=c.primary;ctx.shadowBlur=4+mp*8;ctx.beginPath();ctx.arc(0,46,5,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;}
+    if(role==='stealth'){const sph=Math.sin(frame*.03)*.3+.5;ctx.globalAlpha=sph*.4;const scloak=ctx.createRadialGradient(0,8,5,0,8,44);scloak.addColorStop(0,'rgba(107,140,170,.0)');scloak.addColorStop(.6,'rgba(107,140,170,.3)');scloak.addColorStop(1,'transparent');ctx.fillStyle=scloak;ctx.beginPath();ctx.ellipse(0,8,44,52,0,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;for(let i=0;i<5;i++){const a=(frame*.03+i*1.2),r=30+i*4;const px=Math.cos(a)*r*.8,py=Math.sin(a)*r*.4+8;const pp=(Math.sin(frame*.05+i)+1)*.5;ctx.fillStyle=c.accent;ctx.globalAlpha=pp*.5;ctx.beginPath();ctx.arc(px,py,1.5,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;}ctx.fillStyle=c.accent+'66';ctx.beginPath();ctx.arc(-5,-34,2,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(5,-34,2,0,Math.PI*2);ctx.fill();}
+    if(role==='storm'){ctx.strokeStyle=c.primary;ctx.lineWidth=1.2;ctx.shadowColor=c.primary;ctx.shadowBlur=8;const jitter=()=>(Math.random()-.5)*8;for(let s=0;s<3;s++){ctx.beginPath();ctx.moveTo(-38+s*2,-10+s*8);ctx.lineTo(-28+jitter(),-2+jitter());ctx.lineTo(-18+jitter(),6+jitter());ctx.lineTo(-30,18+s*4);ctx.stroke();ctx.beginPath();ctx.moveTo(38-s*2,-10+s*8);ctx.lineTo(28+jitter(),-2+jitter());ctx.lineTo(18+jitter(),6+jitter());ctx.lineTo(30,18+s*4);ctx.stroke();}ctx.shadowBlur=0;const pr=(frame%40)/40;ctx.strokeStyle=c.primary;ctx.globalAlpha=(1-pr)*.5;ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(0,4,28+pr*20,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1;ctx.fillStyle=c.primary;ctx.shadowColor=c.primary;ctx.shadowBlur=16;ctx.beginPath();ctx.arc(0,4,6,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;}
     ctx.strokeStyle=c.primary+'66'; ctx.lineWidth=.8;
     const aw=Math.sin(frame*.04)*5;
-    ctx.beginPath(); ctx.moveTo(-6,-38); ctx.quadraticCurveTo(-18-aw,-52,-14+aw,-62); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(6,-38); ctx.quadraticCurveTo(18+aw,-52,14-aw,-62); ctx.stroke();
-
-    // legs
+    ctx.beginPath();ctx.moveTo(-6,-38);ctx.quadraticCurveTo(-18-aw,-52,-14+aw,-62);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(6,-38);ctx.quadraticCurveTo(18+aw,-52,14-aw,-62);ctx.stroke();
     ctx.strokeStyle=c.primary+'55'; ctx.lineWidth=1;
     const ls=Math.sin(frame*.05)*6;
     [[-22,-6,-36,-10+ls],[-22,6,-38,14-ls],[-22,20,-34,32+ls],[22,-6,36,-10-ls],[22,6,38,14+ls],[22,20,34,32-ls]].forEach(([x1,y1,x2,y2])=>{
-      ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
-      ctx.fillStyle=c.primary+'44'; ctx.beginPath(); ctx.arc(x2,y2,1.8,0,Math.PI*2); ctx.fill();
+      ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();
+      ctx.fillStyle=c.primary+'44';ctx.beginPath();ctx.arc(x2,y2,1.8,0,Math.PI*2);ctx.fill();
     });
-
     ctx.restore();
     frame++;
-    requestAnimationFrame(draw);
   }
-  draw();
+
+  const loop = makeLoop(drawFrame);
+  loop.observe(canvas);
 }
 
 document.querySelectorAll('.role-canvas').forEach(canvas => {
@@ -1039,55 +1094,28 @@ document.querySelectorAll('.role-canvas').forEach(canvas => {
 });
 
 /* ─── BIDIRECTIONAL SCROLL REVEAL ─── */
-// Toggle .visible on/off — CSS transition handles both fade-in and fade-out
 const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
 const scrollObs = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    } else {
-      entry.target.classList.remove('visible');
-    }
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+    else entry.target.classList.remove('visible');
   });
 }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 revealEls.forEach(el => scrollObs.observe(el));
 
-/* ─── ROLE BARS on entry ─── */
-const barObs = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    const fill = e.target.querySelector('.role-bar-fill');
-    if (!fill) return;
-    if (e.isIntersecting) {
-      setTimeout(() => { fill.style.width = fill.dataset.width; }, 300);
-    } else {
-      fill.style.width = '0%';
-    }
-  });
-}, { threshold: 0.3 });
-document.querySelectorAll('.role-card').forEach(c => barObs.observe(c));
-
 /* ─── EMAIL STORAGE ─── */
-// Emails are stored in localStorage and optionally sent to Formspree.
-// To collect emails from ALL visitors (not just your own browser):
-//   1. Go to formspree.io → Create free account → New Form
-//   2. Copy your Form ID (looks like: xabc1234)
-//   3. Replace 'YOUR_FORM_ID' below with that ID
-
-const FORMSPREE_ID = 'mnjlyqko';  // ← replace this
+const FORMSPREE_ID = 'mnjlyqko';
 
 function handleSignup() {
   const input = document.getElementById('email-input');
   const val = input.value.trim();
   const msg = document.getElementById('signup-msg');
-
   const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRx.test(val)) {
     msg.textContent = '// ERROR: Invalid email address.';
     msg.style.color = '#ff6b35'; msg.style.opacity = '1';
     return;
   }
-
-  // 1. Store locally
   const stored = JSON.parse(localStorage.getItem('db_waitlist') || '[]');
   const istTime = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
   const entry = { email: val, date: istTime };
@@ -1095,16 +1123,13 @@ function handleSignup() {
     stored.push(entry);
     localStorage.setItem('db_waitlist', JSON.stringify(stored));
   }
-
-  // 2. Send to Formspree (if configured)
   if (FORMSPREE_ID !== 'YOUR_FORM_ID') {
     fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-     body: JSON.stringify({ email: val, submitted_at_IST: istTime, _subject: '🪲 New Dung Beetles Waitlist Signup' })
-    }).catch(() => {}); // fail silently
+      body: JSON.stringify({ email: val, submitted_at_IST: istTime, _subject: '🪲 New Dung Beetles Waitlist Signup' })
+    }).catch(() => {});
   }
-
   msg.textContent = '// ACCESS GRANTED — Welcome to the swarm.';
   msg.style.color = 'var(--green-neon)'; msg.style.opacity = '1';
   input.value = '';
@@ -1118,10 +1143,10 @@ function openAdmin() {
   const emails = JSON.parse(localStorage.getItem('db_waitlist') || '[]');
   const list = document.getElementById('email-list');
   const count = document.getElementById('admin-count');
-  count.textContent = `${emails.length} email${emails.length!==1?'s':''} stored locally · Replace FORMSPREE_ID for cloud collection`;
+  count.textContent = `${emails.length} email${emails.length!==1?'s':''} stored locally`;
   list.innerHTML = emails.length === 0
     ? '<div style="font-family:\'Share Tech Mono\',monospace;font-size:.75rem;color:var(--muted);padding:1rem 0;">No emails collected yet.</div>'
-    : emails.map((e,i) => `<div class="email-entry"><span class="email-entry-addr">${e.email}</span><span class="email-entry-date">${e.date}</span></div>`).join('');
+    : emails.map(e => `<div class="email-entry"><span class="email-entry-addr">${e.email}</span><span class="email-entry-date">${e.date}</span></div>`).join('');
   document.getElementById('admin-modal').classList.add('open');
 }
 function closeAdmin() { document.getElementById('admin-modal').classList.remove('open'); }
@@ -1138,17 +1163,14 @@ function copyEmails() {
 }
 function clearEmails() {
   if (confirm('Clear all stored emails? This cannot be undone.')) {
-    localStorage.removeItem('db_waitlist');
-    openAdmin();
+    localStorage.removeItem('db_waitlist'); openAdmin();
   }
 }
 document.getElementById('admin-modal').addEventListener('click', e => {
   if (e.target === document.getElementById('admin-modal')) closeAdmin();
 });
 
-
-
-/* ─── LOOP ACCORDION ─── */
+/* ─── FIX 1: LOOP ACCORDION — desktop hover + mobile tap ─── */
 (function () {
   const accordion = document.getElementById('loop-accordion');
   if (!accordion) return;
@@ -1157,46 +1179,45 @@ document.getElementById('admin-modal').addEventListener('click', e => {
 
   function activate(panel) {
     if (active === panel) return;
-
     if (active) {
       const oldVid = active.querySelector('.lp-video');
       active.classList.remove('is-active');
       if (oldVid) oldVid.pause();
     }
-
     panel.classList.add('is-active');
-    accordion.classList.add('is-expanded'); // <-- Triggers the height expansion
-    
+    accordion.classList.add('is-expanded');
     const vid = panel.querySelector('.lp-video');
-    if (vid) {
-      vid.currentTime = 0;
-      vid.play().catch(() => {});
-    }
+    if (vid) { vid.currentTime = 0; vid.play().catch(() => {}); }
     active = panel;
   }
 
   function deactivateAll() {
     if (!active) return;
     active.classList.remove('is-active');
-    accordion.classList.remove('is-expanded'); // <-- Collapses the height
-    
+    accordion.classList.remove('is-expanded');
     const vid = active.querySelector('.lp-video');
     if (vid) { vid.pause(); vid.currentTime = 0; }
     active = null;
   }
 
   panels.forEach(panel => {
+    // Desktop hover
     panel.addEventListener('mouseenter', () => activate(panel));
+    // FIX 1 — Mobile tap: tap active panel to close, tap other to switch
+    panel.addEventListener('click', () => {
+      if (active === panel) deactivateAll();
+      else activate(panel);
+    });
   });
 
-  // Only collapse when the cursor fully leaves the accordion container
-  accordion.addEventListener('mouseleave', () => deactivateAll());
+  // Collapse only when leaving the whole accordion (desktop)
+  accordion.addEventListener('mouseleave', () => {
+    if (!isTouch) deactivateAll();
+  });
 })();
 
-
-/* ─── SCROLL EFFECTS (Nav Shrink & Scroll Hint Fade) ─── */
+/* ─── SCROLL EFFECTS ─── */
 window.addEventListener('scroll', () => {
-  // 1. Nav Shrink
   const nav = document.querySelector('nav');
   if (window.scrollY > 60) {
     nav.style.padding = '.9rem 3rem';
@@ -1205,15 +1226,10 @@ window.addEventListener('scroll', () => {
     nav.style.padding = '1.4rem 3rem';
     nav.style.borderBottomColor = 'rgba(212,135,10,.12)';
   }
-  
-  // 2. Scroll Hint Fade Out
   const scrollHint = document.querySelector('.hero-scroll-hint');
   if (scrollHint) {
-      if (window.scrollY > 20) {
-          scrollHint.classList.add('hidden'); // Fades out when you scroll down
-      } else {
-          scrollHint.classList.remove('hidden'); // Fades back in at the top
-      }
+    if (window.scrollY > 20) scrollHint.classList.add('hidden');
+    else scrollHint.classList.remove('hidden');
   }
 }, { passive: true });
 </script>

@@ -518,8 +518,38 @@ background: linear-gradient(to right,
       .stats-bar { flex-wrap: wrap; }
       .stat { flex: 0 0 50%; }
     }
-@media (max-width: 640px) {
-      .roles-grid { grid-template-columns: 1fr; }
+/* This ensures that on any screen smaller than 900px, 
+       the roles stack vertically as 1 per row */
+    @media (max-width: 900px) {
+      .roles-grid { 
+        grid-template-columns: 1fr !important; 
+        gap: 3rem; /* Adds healthy breathing room between roles */
+      }
+
+      .role-card {
+        padding: 0 1rem 2rem 1rem; /* Adds side padding so text doesn't touch edges */
+      }
+
+      .role-img {
+        width: 85% !important; /* Makes the beetle larger and clearer on mobile */
+        max-width: 320px; /* Prevents it from getting too massive on tablets */
+        margin: 0 auto 1.5rem auto !important;
+      }
+      
+      .role-card h3 {
+        font-size: 2.4rem; /* Makes the role title readable on small screens */
+        text-align: center;
+      }
+
+      .role-card p {
+        text-align: center; /* Centers the description for a better mobile look */
+        max-width: 100%;
+      }
+      
+      .role-tag {
+        text-align: center;
+      }
+    }
 
       /* FIX: Force the beetle container to maintain its portrait shape on mobile */
       .role-img {

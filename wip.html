@@ -26,7 +26,31 @@
     #cursor{position:fixed;width:12px;height:12px;background:var(--amber-glow);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:transform .15s;}
     #cursor-ring{position:fixed;width:38px;height:38px;border:1.5px solid var(--amber);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .2s ease,border-color .2s;opacity:.55;}
     body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");opacity:.04;pointer-events:none;z-index:9000;}
-
+    /* TRANSLATION TOGGLE */
+    .lang-toggle { display: flex; align-items: center; border: 1px solid rgba(212,135,10,.3); margin-right: 1rem; }
+    .lang-btn { font-family: 'Share Tech Mono', monospace; font-size: .65rem; padding: .4rem .7rem; cursor: pointer; color: var(--muted); transition: all .2s; }
+    .lang-btn.active { background: rgba(212,135,10,.15); color: var(--amber-glow); }
+    .lang-btn:hover:not(.active) { color: var(--white); background: rgba(212,135,10,.05); }
+    
+    /* HIDE DEFAULT GOOGLE TRANSLATE JUNK (NUKE FROM ORBIT) */
+    .goog-te-banner-frame,
+    .goog-te-banner-frame.skiptranslate,
+    iframe.goog-te-banner-frame,
+    iframe[name="goog-te-banner-frame"],
+    .skiptranslate > iframe { 
+        display: none !important; 
+        visibility: hidden !important;
+        height: 0 !important;
+        width: 0 !important;
+    }
+    body { 
+        top: 0px !important; 
+        position: static !important; 
+        transform: none !important;
+    }
+    .goog-tooltip { display: none !important; }
+    .goog-text-highlight { background-color: transparent !important; border: none !important; box-shadow: none !important; }
+    #google_translate_element { display: none !important; }
     /* NAV */
     nav{position:fixed;top:0;left:0;right:0;z-index:600;display:flex;align-items:center;justify-content:space-between;padding:1.1rem 3rem;backdrop-filter:blur(22px) saturate(180%);background:rgba(6,4,2,.82);border-bottom:1px solid var(--border);transition:padding .3s;}
     .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.12em;color:var(--amber-glow);text-decoration:none;}
@@ -405,6 +429,10 @@
     <li><a href="#community">Community</a></li>
   </ul>
   <div class="nav-right">
+    <div class="lang-toggle">
+      <div class="lang-btn active" id="lang-en" onclick="changeLanguage('en')">EN</div>
+      <div class="lang-btn" id="lang-ja" onclick="changeLanguage('ja')">JP</div>
+    </div>
     <span class="wip-badge"><span class="live-dot"></span>Live Devlog</span>
     <a class="nav-back" href="index.html">&#8592; Main Site</a>
     <button class="nav-hamburger" id="wip-hamburger" aria-label="Open menu" onclick="toggleWipNav()">
@@ -1093,5 +1121,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 </script>
+
+<div id="google_translate_element"></div>
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en', 
+      includedLanguages: 'en,ja', // Only allow English and Japanese
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+
+  function changeLanguage(langCode) {
+    // 1. Update our custom button UI
+    document.getElementById('lang-en').classList.remove('active');
+    document.getElementById('lang-ja').classList.remove('active');
+    document.getElementById('lang-' + langCode).classList.add('active');
+
+    // 2. Aggressively trigger the hidden Google dropdown
+    const selectField = document.querySelector(".goog-te-combo");
+    if (selectField) {
+      selectField.value = langCode;
+      selectField.dispatchEvent(new Event('change', { bubbles: true, cancelable: true })); 
+      
+      // FIX: The 50ms delay "double-taps" it to guarantee a 1-click instant change.
+      setTimeout(() => {
+        if(selectField.value !== langCode) selectField.value = langCode;
+        selectField.dispatchEvent(new Event('change', { bubbles: true, cancelable: true }));
+      }, 50);
+    }
+  }
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>

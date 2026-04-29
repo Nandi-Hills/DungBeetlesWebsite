@@ -40,6 +40,31 @@
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
       opacity: .035; pointer-events: none; z-index: 9000;
     }
+   /* TRANSLATION TOGGLE */
+    .lang-toggle { display: flex; align-items: center; border: 1px solid rgba(212,135,10,.3); margin-right: 1rem; }
+    .lang-btn { font-family: 'Share Tech Mono', monospace; font-size: .65rem; padding: .4rem .7rem; cursor: pointer; color: var(--muted); transition: all .2s; }
+    .lang-btn.active { background: rgba(212,135,10,.15); color: var(--amber-glow); }
+    .lang-btn:hover:not(.active) { color: var(--white); background: rgba(212,135,10,.05); }
+    
+   /* HIDE DEFAULT GOOGLE TRANSLATE JUNK (NUKE FROM ORBIT) */
+    .goog-te-banner-frame,
+    .goog-te-banner-frame.skiptranslate,
+    iframe.goog-te-banner-frame,
+    iframe[name="goog-te-banner-frame"],
+    .skiptranslate > iframe { 
+        display: none !important; 
+        visibility: hidden !important;
+        height: 0 !important;
+        width: 0 !important;
+    }
+    body { 
+        top: 0px !important; 
+        position: static !important; 
+        transform: none !important;
+    }
+    .goog-tooltip { display: none !important; }
+    .goog-text-highlight { background-color: transparent !important; border: none !important; box-shadow: none !important; }
+    #google_translate_element { display: none !important; }
 
     /* NAV */
     nav {
@@ -140,6 +165,43 @@ background: linear-gradient(to right,
     @keyframes marquee { 0% { -webkit-transform: translateX(0); transform: translateX(0); } 100% { -webkit-transform: translateX(-50%); transform: translateX(-50%); } }
 
     /* SECTIONS */
+    /* --- GAMEPLAY SLIDESHOW (Imported from DIP) --- */
+    #gameplay { background: var(--bg2); }
+    .slideshow-outer { position: relative; border: 1px solid rgba(212,135,10,.14); border-radius: 2px; transition: border-color .4s, box-shadow .5s; }
+    .slideshow-outer:hover { border-color: var(--amber); box-shadow: 0 0 28px rgba(212,135,10,.4), 0 0 70px rgba(212,135,10,.14), inset 0 0 40px rgba(212,135,10,.04); }
+    .slide-main { position: relative; aspect-ratio: 16/9; background: #060402; overflow: hidden; }
+    .slide-item { position: absolute; inset: 0; opacity: 0; transition: opacity .65s ease, transform .65s ease; transform: scale(1.04); z-index: 1; }
+    .slide-item.active { opacity: 1; transform: scale(1); z-index: 2; }
+    .slide-item img, .slide-item video { width: 100%; height: 100%; object-fit: contain; display: block; transition: transform .5s ease; background: #060402; }
+    .slideshow-outer:hover .slide-item.active img, .slideshow-outer:hover .slide-item.active video { transform: scale(1.035); }
+    .slide-info-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(6,4,2,.96) 0%, rgba(6,4,2,.4) 60%, transparent 100%); padding: 4rem 2rem 1.6rem; z-index: 3; pointer-events: none; }
+    .slide-tag { font-family: 'Share Tech Mono', monospace; font-size: .6rem; letter-spacing: .28em; color: var(--amber); text-transform: uppercase; margin-bottom: .4rem; }
+    .slide-title { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: .06em; color: var(--white); }
+    .slide-desc { font-size: .88rem; color: var(--muted); margin-top: .3rem; }
+    .slide-counter { position: absolute; top: 1rem; right: 1rem; font-family: 'Share Tech Mono', monospace; font-size: .62rem; letter-spacing: .2em; color: var(--muted); background: rgba(6,4,2,.8); border: 1px solid rgba(212,135,10,.14); padding: .35rem .8rem; z-index: 4; }
+    .slide-pause-badge { position: absolute; top: 1rem; left: 1rem; font-family: 'Share Tech Mono', monospace; font-size: .55rem; letter-spacing: .22em; color: var(--amber); background: rgba(6,4,2,.82); border: 1px solid rgba(212,135,10,.35); padding: .32rem .7rem; z-index: 4; opacity: 0; transition: opacity .3s; pointer-events: none; }
+    @media(hover:hover){ .slideshow-outer:hover .slide-pause-badge { opacity: 1; } }
+    .slide-progress { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: rgba(212,135,10,.1); z-index: 5; }
+    .slide-progress-fill { height: 100%; background: linear-gradient(to right, var(--amber), var(--green-neon)); width: 0%; }
+    .slide-btn { position: absolute; top: 50%; transform: translateY(-50%); z-index: 4; font-family: 'Share Tech Mono', monospace; font-size: .85rem; color: var(--muted); background: rgba(6,4,2,.75); border: 1px solid rgba(212,135,10,.14); width: 46px; height: 46px; display: flex; align-items: center; justify-content: center; cursor: none; transition: color .2s, border-color .2s, box-shadow .2s, background .2s; }
+    .slide-btn:hover { color: var(--amber-glow); border-color: var(--amber); box-shadow: 0 0 14px rgba(212,135,10,.4); background: rgba(6,4,2,.92); }
+    .slide-btn.prev { left: 1.2rem; }
+    .slide-btn.next { right: 1.2rem; }
+    .slide-thumbs { display: flex; gap: 2px; background: rgba(212,135,10,.05); overflow-x: auto; scrollbar-width: none; padding: 2px; }
+    .slide-thumbs::-webkit-scrollbar { display: none; }
+    .slide-thumb { flex: 0 0 130px; aspect-ratio: 16/9; position: relative; overflow: hidden; cursor: none; border: 1px solid transparent; opacity: .45; transition: opacity .3s, border-color .3s, box-shadow .3s; }
+    .slide-thumb img, .slide-thumb video { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+    .slide-thumb:hover { opacity: .8; border-color: rgba(212,135,10,.4); }
+    .slide-thumb.active { opacity: 1; border-color: var(--amber); box-shadow: 0 0 12px rgba(212,135,10,.45); }
+    .slide-thumb-num { position: absolute; bottom: .3rem; left: .45rem; font-family: 'Share Tech Mono', monospace; font-size: .5rem; letter-spacing: .15em; color: rgba(232,220,200,.5); }
+    
+    @media (max-width: 700px) {
+      .slide-thumb { flex: 0 0 90px; }
+      .slide-title { font-size: 1.5rem; }
+      .slide-btn { width: 38px; height: 38px; }
+      .slide-tag, .slide-desc { display: none !important; }
+      .slide-info-overlay { padding-bottom: 0.6rem !important; }
+    }
     section { padding: 7rem 5vw; }
     .tag { font-family: 'Share Tech Mono', monospace; font-size: .68rem; letter-spacing: .35em; color: var(--green-neon); text-transform: uppercase; margin-bottom: 1rem; display: block; }
     h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1; letter-spacing: .02em; color: var(--white); }
@@ -597,6 +659,7 @@ background: linear-gradient(to right,
       .nav-wip, .nav-cta { font-size: .62rem; padding: .45rem .9rem; }
     }
   </style>
+<script src="wip-content.js?v=1777495360"></script>
 </head>
 <body>
 
@@ -632,6 +695,11 @@ background: linear-gradient(to right,
     <li><a href="#philosophy">Philosophy</a></li>
   </ul>
   <div class="nav-right">
+   <div class="lang-toggle">
+      <div class="lang-btn active" id="lang-en" onclick="changeLanguage('en')">EN</div>
+      <div class="lang-btn" id="lang-ja" onclick="changeLanguage('ja')">JP</div>
+    </div>
+    
     <button class="nav-wip" onclick="window.location.href='wip.html'">⬡ DIP</button>
     <button class="nav-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Join Waitlist</button>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" onclick="toggleMobileNav()">
@@ -686,15 +754,23 @@ background: linear-gradient(to right,
   </div>
 </div>
 
-<!-- WORLD -->
+<section id="gameplay">
+  <div style="margin-bottom:3rem;">
+    <span class="tag reveal">// Concept Art & Early Builds</span>
+    <h2 class="reveal">CURRENT <em>PROGRESS</em></h2>
+    <p class="reveal" style="margin-top:1rem; font-size:1.08rem; color:var(--muted); max-width:600px;">
+      We are actively building this. Here is a raw look at our 3D rigged models, conceptual art directions, and early mechanical prototypes. 
+    </p>
+  </div>
+  <div id="dynamic-media-grid"></div>
+</section>
+
 <section id="world">
-  
   <div class="world-visual reveal-left">
     <canvas id="world-canvas" width="480" height="480"></canvas>
     <div class="world-corner tl"></div><div class="world-corner tr"></div>
     <div class="world-corner bl"></div><div class="world-corner br"></div>
   </div>
-
   <div class="world-text">
     <span class="tag reveal">// The Worldview</span>
     <h2 class="reveal">THE <em>MICRO</em><br>BATTLEFIELD</h2>
@@ -702,7 +778,6 @@ background: linear-gradient(to right,
     <p class="reveal">Two factions clash across a nature-scale arena. Every blade of grass is a wall. Every pebble is a fortress. Every pile of dung is victory itself.</p>
     <p class="reveal">The core fantasy lives in <strong>agility, instinct, and teamwork</strong> — and the chaos of competing for your most precious resource.</p>
   </div>
-
 </section>
 
 <!-- STATS -->
@@ -1436,6 +1511,171 @@ window.addEventListener('scroll', () => {
       }
   }
 }, { passive: true });
+/* ─── DYNAMIC MEDIA SLIDESHOW (From WIP) ─── */
+document.addEventListener('DOMContentLoaded', () => {
+    const mediaGrid = document.getElementById('dynamic-media-grid');
+    if (!mediaGrid) return; // Failsafe
+
+    if (typeof WIP_CONTENT !== 'undefined' && WIP_CONTENT.length > 0) {
+        const DURATION = 5000;
+        let current = 0;
+        let paused = false;
+        let progressStart = null;
+        let progressElapsed = 0;
+        let progressRaf = null;
+
+        const pad = n => String(n).padStart(2, '0');
+
+        mediaGrid.innerHTML = `
+          <div class="slideshow-outer" id="slideshow-wrap">
+            <div class="slide-main">
+              ${WIP_CONTENT.map((item, i) => `
+                <div class="slide-item ${i === 0 ? 'active' : ''}" data-i="${i}">
+                  ${item.type === 'video'
+                    ? `<video src="${item.file}" autoplay loop muted playsinline></video>`
+                    : `<img src="${item.file}" alt="${item.title}" ${i === 0 ? '' : 'loading="lazy"'} />`}
+                </div>`).join('')}
+              <div class="slide-info-overlay" id="slide-info">
+                <div class="slide-tag">// ${WIP_CONTENT[0].tag || 'update'}</div>
+                <div class="slide-title">${WIP_CONTENT[0].title}</div>
+                <div class="slide-desc">${WIP_CONTENT[0].desc}</div>
+              </div>
+              <div class="slide-counter" id="slide-ctr">${pad(1)} / ${pad(WIP_CONTENT.length)}</div>
+              <div class="slide-pause-badge">&#9646;&#9646; PAUSED</div>
+              <button class="slide-btn prev" id="slide-prev" aria-label="Previous">&#8592;</button>
+              <button class="slide-btn next" id="slide-next" aria-label="Next">&#8594;</button>
+              <div class="slide-progress"><div class="slide-progress-fill" id="slide-fill"></div></div>
+            </div>
+            <div class="slide-thumbs" id="slide-thumbs">
+              ${WIP_CONTENT.map((item, i) => `
+                <div class="slide-thumb ${i === 0 ? 'active' : ''}" data-i="${i}">
+                  ${item.type === 'video'
+                    ? `<video src="${item.file}" muted preload="metadata"></video>`
+                    : `<img src="${item.file}" alt="" loading="lazy" />`}
+                  <div class="slide-thumb-num">${pad(i + 1)}</div>
+                </div>`).join('')}
+            </div>
+          </div>`;
+
+        const fill = document.getElementById('slide-fill');
+        const info = document.getElementById('slide-info');
+        const ctr  = document.getElementById('slide-ctr');
+        const items = document.querySelectorAll('.slide-item');
+        const thumbs = document.querySelectorAll('.slide-thumb');
+        const wrap  = document.getElementById('slideshow-wrap');
+
+        function updateInfo(idx) {
+            const item = WIP_CONTENT[idx];
+            info.innerHTML = `
+              <div class="slide-tag">// ${item.tag || 'update'}</div>
+              <div class="slide-title">${item.title}</div>
+              <div class="slide-desc">${item.desc}</div>`;
+            ctr.textContent = `${pad(idx + 1)} / ${pad(WIP_CONTENT.length)}`;
+        }
+
+        function goTo(idx) {
+            idx = ((idx % WIP_CONTENT.length) + WIP_CONTENT.length) % WIP_CONTENT.length;
+            items[current].classList.remove('active');
+            thumbs[current].classList.remove('active');
+            current = idx;
+            items[current].classList.add('active');
+            thumbs[current].classList.add('active');
+            updateInfo(current);
+            
+            const thumbContainer = document.getElementById('slide-thumbs');
+            const activeThumb = thumbs[current];
+            const scrollPos = activeThumb.offsetLeft - (thumbContainer.clientWidth / 2) + (activeThumb.clientWidth / 2);
+            thumbContainer.scrollTo({ left: scrollPos, behavior: 'smooth' });
+            
+            resetProgress();
+        }
+
+        function startProgress() {
+            cancelAnimationFrame(progressRaf);
+            progressStart = performance.now() - progressElapsed;
+            function tick(now) {
+                if (paused) return;
+                const elapsed = now - progressStart;
+                const pct = Math.min(elapsed / DURATION * 100, 100);
+                fill.style.width = pct + '%';
+                if (pct < 100) progressRaf = requestAnimationFrame(tick);
+                else { progressElapsed = 0; goTo(current + 1); }
+            }
+            progressRaf = requestAnimationFrame(tick);
+        }
+
+        function pauseProgress(now) {
+            cancelAnimationFrame(progressRaf);
+            progressElapsed = now - progressStart;
+            fill.style.width = (Math.min(progressElapsed / DURATION * 100, 100)) + '%';
+        }
+
+        function resetProgress() {
+            cancelAnimationFrame(progressRaf);
+            progressElapsed = 0;
+            fill.style.transition = 'none';
+            fill.style.width = '0%';
+            if (!paused) startProgress();
+        }
+
+        // Mouse hover controls
+        wrap.addEventListener('mouseenter', () => { paused = true; pauseProgress(performance.now()); });
+        wrap.addEventListener('mouseleave', () => { paused = false; startProgress(); });
+
+        // Nav buttons & clicks
+        document.getElementById('slide-prev').addEventListener('click', e => { e.stopPropagation(); goTo(current - 1); });
+        document.getElementById('slide-next').addEventListener('click', e => { e.stopPropagation(); goTo(current + 1); });
+        document.querySelectorAll('.slide-thumb').forEach(t => {
+            t.addEventListener('click', e => { e.stopPropagation(); goTo(parseInt(t.dataset.i)); });
+        });
+
+        // Mobile Swipe
+        let touchX = null, touchY = null;
+        wrap.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; touchY = e.touches[0].clientY; }, { passive: true });
+        wrap.addEventListener('touchend', e => {
+            if (touchX === null) return;
+            const dx = e.changedTouches[0].clientX - touchX;
+            const dy = e.changedTouches[0].clientY - touchY;
+            if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) goTo(current + (dx < 0 ? 1 : -1));
+            touchX = null; touchY = null;
+        });
+
+        resetProgress();
+    }
+});
 </script>
+<div id="google_translate_element"></div>
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en', 
+      includedLanguages: 'en,ja', // Only allow English and Japanese
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+
+  function changeLanguage(langCode) {
+    // 1. Update our custom button UI
+    document.getElementById('lang-en').classList.remove('active');
+    document.getElementById('lang-ja').classList.remove('active');
+    document.getElementById('lang-' + langCode).classList.add('active');
+
+    // 2. Aggressively trigger the hidden Google dropdown
+    const selectField = document.querySelector(".goog-te-combo");
+    if (selectField) {
+      selectField.value = langCode;
+      selectField.dispatchEvent(new Event('change', { bubbles: true, cancelable: true })); 
+      
+      // FIX: Google Translate sometimes ignores the first programmatic click. 
+      // This 50ms delay "double-taps" it to guarantee a 1-click instant change.
+      setTimeout(() => {
+        if(selectField.value !== langCode) selectField.value = langCode;
+        selectField.dispatchEvent(new Event('change', { bubbles: true, cancelable: true }));
+      }, 50);
+    }
+  }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
 </html>

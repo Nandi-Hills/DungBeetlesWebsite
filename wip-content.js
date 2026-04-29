@@ -5,136 +5,94 @@
 
 const WIP_CONTENT = [
   {
-    "file": "media/01 Title.png",
+    "file": "media/01 Beetles Concept Art.jpeg",
     "type": "image",
     "tag": "update",
-    "title": "01 Title",
+    "title": "01 Beetles Concept Art",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/02 First Beetles Concept.png",
+    "file": "media/02 Beetles Concept Art.png",
     "type": "image",
     "tag": "update",
-    "title": "02 First Beetles Concept",
+    "title": "02 Beetles Concept Art",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/03 First Beetles Concept.png",
+    "file": "media/03 Beetles Concept Art.png",
     "type": "image",
     "tag": "update",
-    "title": "03 First Beetles Concept",
+    "title": "03 Beetles Concept Art",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/04 First Beetles Concept.png",
+    "file": "media/04 POV Concept Art.png",
     "type": "image",
     "tag": "update",
-    "title": "04 First Beetles Concept",
+    "title": "04 Pov Concept Art",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/05 UI Concept.png",
+    "file": "media/05 Beetles 3D Concept.jpeg",
     "type": "image",
     "tag": "update",
-    "title": "05 Ui Concept",
+    "title": "05 Beetles 3D Concept",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/06 Title.png",
+    "file": "media/06 Beetles 3D Concept.jpeg",
     "type": "image",
     "tag": "update",
-    "title": "06 Title",
+    "title": "06 Beetles 3D Concept",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/07 Beetles Concept Art.jpeg",
+    "file": "media/07 Beetles 3D Concept.jpeg",
     "type": "image",
     "tag": "update",
-    "title": "07 Beetles Concept Art",
+    "title": "07 Beetles 3D Concept",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/08 Beetles Concept Art.png",
+    "file": "media/08 Beetles 3D Concept.jpeg",
     "type": "image",
     "tag": "update",
-    "title": "08 Beetles Concept Art",
+    "title": "08 Beetles 3D Concept",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/09 Beetles Concept Art.png",
+    "file": "media/09 Beetles 3D Concept.jpeg",
     "type": "image",
     "tag": "update",
-    "title": "09 Beetles Concept Art",
+    "title": "09 Beetles 3D Concept",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/10 POV Concept Art.png",
+    "file": "media/10 Beetles 3D Concept.jpeg",
     "type": "image",
     "tag": "update",
-    "title": "10 Pov Concept Art",
+    "title": "10 Beetles 3D Concept",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/11 Beetles 3D Concept.jpeg",
-    "type": "image",
-    "tag": "update",
-    "title": "11 Beetles 3D Concept",
-    "desc": "Auto-generated entry."
-  },
-  {
-    "file": "media/12 Beetles 3D Concept.jpeg",
-    "type": "image",
-    "tag": "update",
-    "title": "12 Beetles 3D Concept",
-    "desc": "Auto-generated entry."
-  },
-  {
-    "file": "media/13 Beetles 3D Concept.jpeg",
-    "type": "image",
-    "tag": "update",
-    "title": "13 Beetles 3D Concept",
-    "desc": "Auto-generated entry."
-  },
-  {
-    "file": "media/14 Beetles 3D Concept.jpeg",
-    "type": "image",
-    "tag": "update",
-    "title": "14 Beetles 3D Concept",
-    "desc": "Auto-generated entry."
-  },
-  {
-    "file": "media/15 Beetles 3D Concept.jpeg",
-    "type": "image",
-    "tag": "update",
-    "title": "15 Beetles 3D Concept",
-    "desc": "Auto-generated entry."
-  },
-  {
-    "file": "media/16 Beetles 3D Concept.jpeg",
-    "type": "image",
-    "tag": "update",
-    "title": "16 Beetles 3D Concept",
-    "desc": "Auto-generated entry."
-  },
-  {
-    "file": "media/17 Beetle Rigging.mp4",
+    "file": "media/11 Beetle Rigging.mp4",
     "type": "video",
     "tag": "update",
-    "title": "17 Beetle Rigging",
+    "title": "11 Beetle Rigging",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/18 Beetle Rigging.mp4",
+    "file": "media/12 Beetle Rigging.mp4",
     "type": "video",
     "tag": "update",
-    "title": "18 Beetle Rigging",
+    "title": "12 Beetle Rigging",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/19 Beetle Rigging.mp4",
+    "file": "media/13 Beetle Rigging.mp4",
     "type": "video",
     "tag": "update",
-    "title": "19 Beetle Rigging",
+    "title": "13 Beetle Rigging",
     "desc": "Auto-generated entry."
   }
 ];

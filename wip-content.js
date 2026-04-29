@@ -115,6 +115,27 @@ const WIP_CONTENT = [
     "tag": "update",
     "title": "16 Beetles 3D Concept",
     "desc": "Auto-generated entry."
+  },
+  {
+    "file": "media/17 Beetle Rigging.mp4",
+    "type": "video",
+    "tag": "update",
+    "title": "17 Beetle Rigging",
+    "desc": "Auto-generated entry."
+  },
+  {
+    "file": "media/18 Beetle Rigging.mp4",
+    "type": "video",
+    "tag": "update",
+    "title": "18 Beetle Rigging",
+    "desc": "Auto-generated entry."
+  },
+  {
+    "file": "media/19 Beetle Rigging.mp4",
+    "type": "video",
+    "tag": "update",
+    "title": "19 Beetle Rigging",
+    "desc": "Auto-generated entry."
   }
 ];
 

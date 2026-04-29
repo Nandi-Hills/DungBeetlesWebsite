@@ -594,7 +594,22 @@ background: linear-gradient(to right,
     .mobile-nav-cta{margin-top:1.5rem;display:flex;flex-direction:column;gap:.7rem;}
     .mobile-nav-cta button{width:100%;padding:.9rem;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;}
 
-    @media (max-width: 900px) { .nav-hamburger{display:flex;} }
+    @media (max-width: 900px) { 
+      /* MOBILE NAV SQUISHER - Prevents JP text from covering the logo */
+      nav { padding: 0.8rem 1rem !important; }
+      .nav-right { gap: 0.3rem !important; }
+      .lang-toggle { margin-right: 0.3rem !important; }
+      .lang-btn { padding: 0.3rem 0.5rem !important; font-size: 0.6rem !important; }
+      .nav-wip, .nav-cta, .nav-back { 
+        padding: 0.4rem 0.6rem !important; 
+        font-size: 0.55rem !important; 
+        white-space: nowrap !important;
+      }
+      .nav-logo { font-size: 1.2rem !important; flex-shrink: 0; }
+
+      /* Keeps your hamburger menu working */
+      .nav-hamburger { display: flex; } 
+    }
 @media (max-width: 900px) {
   /* FIX: Removes the BG Image and the Fade Overlay on Mobile Only */
   #hero {

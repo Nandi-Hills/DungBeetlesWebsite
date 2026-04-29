@@ -499,15 +499,44 @@ background: linear-gradient(to right,
     .mobile-nav-cta button{width:100%;padding:.9rem;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;}
 
     @media (max-width: 900px) { .nav-hamburger{display:flex;} }
-    @media (max-width: 900px) {
-      nav { padding: 1.2rem 1.5rem; }
+@media (max-width: 900px) {
+  /* FIX: Removes the BG Image and the Fade Overlay on Mobile Only */
+  #hero {
+    background-image: none !important;
+    background: var(--bg) !important; /* Reverts to the original solid dark color */
+  }
+
+  #hero::after {
+    display: none !important; /* Removes the side-fading mask */
+  }
+  
+  /* Rest of your mobile styles... */
+  nav { padding: 1.2rem 1.5rem; }
+}
       .nav-links { display: none; }
       #world, #economy { grid-template-columns: 1fr; }
       .stats-bar { flex-wrap: wrap; }
       .stat { flex: 0 0 50%; }
     }
-    @media (max-width: 640px) {
+@media (max-width: 640px) {
       .roles-grid { grid-template-columns: 1fr; }
+
+      /* FIX: Force the beetle container to maintain its portrait shape on mobile */
+      .role-img {
+        width: 70% !important; /* Adjust this to make the beetle smaller/larger on phone */
+        aspect-ratio: 1080 / 1920 !important;
+        height: auto !important;
+        margin: 0 auto !important;
+      }
+
+      .role-photo {
+        object-fit: contain !important;
+      }
+      
+      .role-card {
+        padding-bottom: 3rem; /* Adds space between stacked roles */
+      }
+    }
       section { padding: 5rem 1.4rem; }
       .email-form { flex-direction: column; }
       .email-form input { border-right: 1px solid rgba(212,135,10,.25); border-bottom: none; }
@@ -566,7 +595,7 @@ background: linear-gradient(to right,
   <a href="#philosophy" onclick="closeMobileNav()">Philosophy</a>
   <div class="mobile-nav-cta">
     <button class="btn-primary" onclick="closeMobileNav();document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Join the Fight</button>
-    <button class="btn-ghost" onclick="closeMobileNav();window.location.href='wip.html'">⬡ Dev In Progress</button>
+    <button class="btn-ghost" onclick="closeMobileNav();window.location.href='wip.html'">⬡ Dung In Progress</button>
   </div>
 </div>
 

@@ -336,23 +336,6 @@ background: linear-gradient(to right,
         -webkit-box-orient: vertical;
         overflow: hidden;
         font-size: .8rem;
-        #economy { 
-    grid-template-columns: 1fr; /* Stacks the map on top of the text */
-    gap: 2rem; 
-  }
-
-  /* Ensures the map container stays visible and sized correctly on phones */
-  .economy-visual {
-    display: block !important;
-    width: 100%;
-    order: -1; /* Puts the map above the text on mobile */
-  }
-
-  .map-container {
-    width: 100%;
-    aspect-ratio: 16 / 10; /* Keeps the tactical map proportions on mobile */
-    margin-bottom: 1.5rem;
-  }
       }
       /* When active the idle layer is hidden anyway, but keep full text readable */
       .loop-panel.is-active .lp-desc-idle { display: none; }

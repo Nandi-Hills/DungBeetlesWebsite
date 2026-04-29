@@ -147,38 +147,19 @@ background: linear-gradient(to right,
 
     /* WORLD */
     /* Forces the side-by-side layout on desktop */
-    /* The Main Container: Forces 2 columns on Desktop */
     #world { 
       display: grid; 
-      grid-template-columns: 1fr 1fr; /* Creates two equal halves (Left / Right) */
+      grid-template-columns: 1fr 1fr; /* Column 1 (Left): Beetle, Column 2 (Right): Text */
       gap: 5rem; 
       align-items: center; 
     }
-
-    /* Left Side: The Beetle */
-    .world-visual { 
+.world-visual { 
       position: relative; 
       width: 100%;
       max-width: 480px; 
-      margin: 0 auto 0 0; /* Anchors the beetle strictly to the left */
+      margin: 0 auto 0 0; /* Anchors the beetle animation strictly to the left side */
       aspect-ratio: 1; 
       border: 1px solid rgba(212,135,10,.2); 
-    }
-
-    /* Right Side: The Text */
-    .world-text {
-      text-align: left; /* Ensures the text reads cleanly from left to right */
-    }
-    
-    .world-text h2 { margin-bottom: 1rem; }
-    
-    .world-text p { 
-      margin-top: 1.4rem; 
-      font-size: 1.08rem; 
-      font-weight: 400; 
-      line-height: 1.7; 
-      color: var(--muted); 
-      max-width: 480px; 
     }
     .world-visual canvas { width: 100%; height: 100%; display: block; }
     .world-corner { position: absolute; width: 18px; height: 18px; border-color: var(--amber); border-style: solid; }
@@ -547,13 +528,13 @@ background: linear-gradient(to right,
   /* Rest of your mobile styles... */
   nav { padding: 1.2rem 1.5rem; }
 }   
-      /* This ensures that on any screen smaller than 900px, 
-       the roles stack vertically as 1 per row */
-    @media (max-width: 900px) {
       .nav-links { display: none; }
       #world, #economy { grid-template-columns: 1fr; }
       .stats-bar { flex-wrap: wrap; }
       .stat { flex: 0 0 50%; }
+/* This ensures that on any screen smaller than 900px, 
+       the roles stack vertically as 1 per row */
+    @media (max-width: 900px) {
       .roles-grid { 
         grid-template-columns: 1fr !important; 
         gap: 3rem; 
@@ -688,13 +669,11 @@ background: linear-gradient(to right,
 
 <!-- WORLD -->
 <section id="world">
-  
   <div class="world-visual reveal-left">
     <canvas id="world-canvas" width="480" height="480"></canvas>
     <div class="world-corner tl"></div><div class="world-corner tr"></div>
     <div class="world-corner bl"></div><div class="world-corner br"></div>
   </div>
-
   <div class="world-text">
     <span class="tag reveal">// The Worldview</span>
     <h2 class="reveal">THE <em>MICRO</em><br>BATTLEFIELD</h2>
@@ -702,7 +681,6 @@ background: linear-gradient(to right,
     <p class="reveal">Two factions clash across a nature-scale arena. Every blade of grass is a wall. Every pebble is a fortress. Every pile of dung is victory itself.</p>
     <p class="reveal">The core fantasy lives in <strong>agility, instinct, and teamwork</strong> — and the chaos of competing for your most precious resource.</p>
   </div>
-
 </section>
 
 <!-- STATS -->

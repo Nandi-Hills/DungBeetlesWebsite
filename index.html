@@ -79,10 +79,45 @@
     .nav-cta:hover { background: var(--amber); color: var(--bg); }
 
     /* HERO */
-    #hero { position: relative; height: 100vh; min-height: 740px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    #hero { 
+  position: relative; 
+  height: 100vh; 
+  min-height: 740px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  overflow: hidden;
+  /* Add your background image here */
+  background-image: url('Elements/TitleBG.jpeg'); 
+  background-size: cover;
+  background-position: center 40%;
+}
+
+/* This creates the faded center effect */
+#hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* rgba(6, 4, 2, 0.7) is your background color at 70% opacity.
+     The 'transparent' ends ensure the image is fully visible at the far left/right.
+  */
+background: linear-gradient(to right, 
+    transparent 0%, 
+    rgba(6, 4, 2, 0.9) 35%, 
+    rgba(6, 4, 2, 0.9) 65%, 
+    transparent 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
     #hero-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
     .hero-bg-glow { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 55% at 50% 60%, rgba(212,135,10,.18) 0%, transparent 70%); pointer-events: none; }
-    .hero-content { position: relative; z-index: 2; text-align: center; padding: 0 2rem 6rem; }
+    .hero-content { 
+  position: relative; 
+  z-index: 2; /* Keeps text above the fade effect */
+  text-align: center; 
+  padding: 0 2rem 6rem; 
+}
     .hero-eyebrow { font-family: 'Share Tech Mono', monospace; font-size: .72rem; letter-spacing: .45em; color: var(--green-neon); text-transform: uppercase; opacity: 0; animation: fadeUp .8s .3s forwards; }
     .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(5rem, 13vw, 13rem); line-height: .88; letter-spacing: -.01em; color: var(--white); text-shadow: 0 0 80px rgba(212,135,10,.35); opacity: 0; animation: fadeUp .9s .5s forwards; }
     .hero-title .line2 { color: transparent; -webkit-text-stroke: 1.5px var(--amber); }
@@ -319,7 +354,15 @@
     .role-card:hover { background: rgba(212,135,10,.05); }
     /* Role illustration canvas */
 /* The box now dynamically scales to a tall portrait shape instead of a short 160px height */
-    .role-img { width: 68%; aspect-ratio: 1080 / 1920; height: auto; display: block; position: relative; background: #050302; }
+.role-img { 
+  width: 68%; 
+  aspect-ratio: 1080 / 1920; 
+  height: auto; 
+  display: block; 
+  position: relative; 
+  background: #050302; 
+  margin: 0 auto; /* This centers the beetle container */
+}
     .role-img canvas { width: 100%; height: 100%; display: block; object-fit: cover; }
     
     /* object-fit: contain ensures the image is never cropped */
@@ -340,13 +383,25 @@
 
     /* ECONOMY */
     #economy { background: var(--mud); display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: center; }
-    .economy-orb { width: 100%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 38% 35%, rgba(212,135,10,.22) 0%, rgba(126,200,69,.08) 45%, transparent 70%); border: 1px solid rgba(212,135,10,.18); display: flex; align-items: center; justify-content: center; position: relative; }
-    .orb-label { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: .15em; color: var(--amber-glow); text-align: center; }
-    .orb-label small { display: block; font-family: 'Share Tech Mono', monospace; font-size: .6rem; letter-spacing: .2em; color: var(--muted); margin-top: .3rem; }
-    .orbit-node { position: absolute; width: 90px; height: 90px; border-radius: 50%; background: var(--bg2); border: 1px solid rgba(212,135,10,.25); display: flex; align-items: center; justify-content: center; text-align: center; padding: .5rem; font-family: 'Share Tech Mono', monospace; font-size: .6rem; letter-spacing: .1em; color: var(--text); text-transform: uppercase; line-height: 1.3; }
-    .orbit-node.n1 { top: -1rem; left: 50%; transform: translateX(-50%); }
-    .orbit-node.n2 { bottom: 10%; right: -1rem; }
-    .orbit-node.n3 { bottom: 10%; left: -1rem; }
+.map-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 11;
+      border: 1px solid rgba(212, 135, 10, 0.2);
+      background: var(--bg);
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+    }
+    .economy-map {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0.85;
+      transition: transform 0.6s ease, opacity 0.6s ease;
+    }
+    .map-container:hover .economy-map {
+      transform: scale(1.08);
+      opacity: 1;
+    }
     .economy-text p { margin-top: 1.4rem; font-size: 1.05rem; line-height: 1.72; color: var(--muted); }
     .economy-text p strong { color: var(--text); }
     .economy-list { margin-top: 2rem; list-style: none; display: flex; flex-direction: column; gap: .8rem; }
@@ -738,12 +793,12 @@
 <!-- ECONOMY -->
 <section id="economy">
   <div class="economy-visual reveal-left">
-    <div class="economy-orb">
-      <div><div class="orb-label">DUNG<small>The Resource</small></div></div>
-      <div class="orbit-node n1">Victory<br>Points</div>
-      <div class="orbit-node n2">Ability<br>Fuel</div>
-      <div class="orbit-node n3">Base<br>Currency</div>
-    </div>
+    <div class="map-container">
+  <img src="Elements/Map.png" alt="Battlefield Layout" class="economy-map">
+  
+  <div class="world-corner tl"></div><div class="world-corner tr"></div>
+  <div class="world-corner bl"></div><div class="world-corner br"></div>
+</div>
   </div>
   <div class="economy-text">
     <span class="tag reveal">// Resource Economy</span>
@@ -934,6 +989,7 @@ function drawDungBall(ctx, cx, cy, r, t) {
 /* ─── ROLE CANVASES — unique beetle art per role ─── */
 function drawRoleBeetle(canvas, role) {
   const ctx = canvas.getContext('2d');
+  const photo = canvas.parentElement.querySelector('.role-photo'); // New line: finds the sibling image
   const W = canvas.width, H = canvas.height;
   let frame = 0;
   const colors = {
@@ -946,7 +1002,8 @@ function drawRoleBeetle(canvas, role) {
   };
   const c = colors[role] || colors.defender;
 
-  function draw() {
+function draw() {
+    
     ctx.clearRect(0,0,W,H);
     // bg atmosphere
     const bg = ctx.createRadialGradient(W/2, H/2, 10, W/2, H/2, 100);

@@ -318,12 +318,16 @@
     .role-card { background: var(--bg); padding: 0 0 2rem 0; position: relative; overflow: hidden; transition: background .3s; }
     .role-card:hover { background: rgba(212,135,10,.05); }
     /* Role illustration canvas */
-    .role-img { width: 100%; height: 160px; display: block; position: relative; }
+.role-img { width: 100%; height: 160px; display: block; position: relative; }
     .role-img canvas { width: 100%; height: 100%; display: block; }
+    
+    /* NEW: Styling for the static beetle photos */
+    .role-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+    
     .role-img-overlay {
       position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
       background: linear-gradient(to bottom, transparent, var(--bg));
-      pointer-events: none; transition: background .3s;
+      pointer-events: none; transition: background .3s; z-index: 2; /* Increased z-index to sit above the photo */
     }
     .role-card:hover .role-img-overlay { background: linear-gradient(to bottom, transparent, rgba(212,135,10,.05)); }
     .role-card-body { padding: 1.4rem 2rem 0; }
@@ -656,47 +660,71 @@
   </div>
 <div class="roles-grid">
     <div class="role-card reveal" data-role="defender">
-      <div class="role-img"><canvas class="role-canvas" width="360" height="160" data-role="defender"></canvas><div class="role-img-overlay"></div></div>
+      <div class="role-img">
+        <canvas class="role-canvas" width="360" height="160" data-role="defender"></canvas>
+        <img src="Beetles/defender.png" alt="Defender" class="role-photo" onerror="this.style.display='none'">
+        <div class="role-img-overlay"></div>
+      </div>
       <div class="role-card-body">
         <span class="role-tag">Role 01</span>
         <h3>Defender</h3>
         <p>Masters of territory. Defenders anchor your base perimeter, manage turret deployment, and intercept enemy carriers with precision knockback.</p>
       </div>
     </div>
-    <div class="role-card reveal" data-role="attacker">
-      <div class="role-img"><canvas class="role-canvas" width="360" height="160" data-role="attacker"></canvas><div class="role-img-overlay"></div></div>
+<div class="role-card reveal" data-role="attacker">
+      <div class="role-img">
+        <canvas class="role-canvas" width="360" height="160" data-role="attacker"></canvas>
+        <img src="Beetles/attacker.png" alt="Attacker" class="role-photo" onerror="this.style.display='none'">
+        <div class="role-img-overlay"></div>
+      </div>
       <div class="role-card-body">
         <span class="role-tag">Role 02</span>
         <h3>Attacker</h3>
         <p>Born to disrupt. Attackers slash into enemy formations, strip carried dung from opponents, and create chaos that turns the tide of any escort.</p>
       </div>
     </div>
-    <div class="role-card reveal" data-role="scout">
-      <div class="role-img"><canvas class="role-canvas" width="360" height="160" data-role="scout"></canvas><div class="role-img-overlay"></div></div>
+<div class="role-card reveal" data-role="scout">
+      <div class="role-img">
+        <canvas class="role-canvas" width="360" height="160" data-role="scout"></canvas>
+        <img src="Beetles/scout.png" alt="Scout" class="role-photo" onerror="this.style.display='none'">
+        <div class="role-img-overlay"></div>
+      </div>
       <div class="role-card-body">
         <span class="role-tag">Role 03</span>
         <h3>Scout</h3>
         <p>Information is the ultimate weapon. Scouts reveal threats before they manifest, track enemy positioning, and open flanking lanes through dark terrain.</p>
       </div>
     </div>
-    <div class="role-card reveal" data-role="trapper">
-      <div class="role-img"><canvas class="role-canvas" width="360" height="160" data-role="trapper"></canvas><div class="role-img-overlay"></div></div>
+<div class="role-card reveal" data-role="trapper">
+      <div class="role-img">
+        <canvas class="role-canvas" width="360" height="160" data-role="trapper"></canvas>
+        <img src="Beetles/trapper.png" alt="Trapper" class="role-photo" onerror="this.style.display='none'">
+        <div class="role-img-overlay"></div>
+      </div>
       <div class="role-card-body">
         <span class="role-tag">Role 04</span>
         <h3>Trapper</h3>
         <p>Patience is a weapon. Trappers lay hidden snares along choke points, redirect enemy traffic, and create devastating kill zones around objectives.</p>
       </div>
     </div>
-    <div class="role-card reveal" data-role="stealth">
-      <div class="role-img"><canvas class="role-canvas" width="360" height="160" data-role="stealth"></canvas><div class="role-img-overlay"></div></div>
+<div class="role-card reveal" data-role="stealth">
+      <div class="role-img">
+        <canvas class="role-canvas" width="360" height="160" data-role="stealth"></canvas>
+        <img src="Beetles/stealth.png" alt="Stealth" class="role-photo" onerror="this.style.display='none'">
+        <div class="role-img-overlay"></div>
+      </div>
       <div class="role-card-body">
         <span class="role-tag">Role 05</span>
         <h3>Stealth</h3>
         <p>Unseen. Unstoppable. Stealth beetles dissolve into shadow, slip through enemy lines undetected, and strike the moment their guard drops.</p>
       </div>
     </div>
-    <div class="role-card reveal" data-role="storm">
-      <div class="role-img"><canvas class="role-canvas" width="360" height="160" data-role="storm"></canvas><div class="role-img-overlay"></div></div>
+<div class="role-card reveal" data-role="storm">
+      <div class="role-img">
+        <canvas class="role-canvas" width="360" height="160" data-role="storm"></canvas>
+        <img src="Beetles/storm.png" alt="Storm" class="role-photo" onerror="this.style.display='none'">
+        <div class="role-img-overlay"></div>
+      </div>
       <div class="role-card-body">
         <span class="role-tag">Role 06</span>
         <h3>Storm</h3>

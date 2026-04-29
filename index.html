@@ -522,54 +522,46 @@ background: linear-gradient(to right,
     @media (max-width: 900px) {
       .roles-grid { 
         grid-template-columns: 1fr !important; 
-        gap: 3rem; /* Adds healthy breathing room between roles */
+        gap: 3rem; 
       }
 
       .role-card {
-        padding: 0 1rem 2rem 1rem; /* Adds side padding so text doesn't touch edges */
+        padding: 0 1rem 2rem 1rem; 
       }
 
+      /* Merged all the mobile image fixes into one clean block */
       .role-img {
-        width: 85% !important; /* Makes the beetle larger and clearer on mobile */
-        max-width: 320px; /* Prevents it from getting too massive on tablets */
+        width: 85% !important; 
+        max-width: 320px; 
+        aspect-ratio: 1080 / 1920 !important;
+        height: auto !important;
         margin: 0 auto 1.5rem auto !important;
       }
       
+      .role-photo {
+        object-fit: contain !important;
+      }
+
       .role-card h3 {
-        font-size: 2.4rem; /* Makes the role title readable on small screens */
+        font-size: 2.4rem; 
         text-align: center;
       }
 
       .role-card p {
-        text-align: center; /* Centers the description for a better mobile look */
+        text-align: center; 
         max-width: 100%;
       }
       
       .role-tag {
         text-align: center;
       }
-    }
 
-      /* FIX: Force the beetle container to maintain its portrait shape on mobile */
-      .role-img {
-        width: 70% !important; /* Adjust this to make the beetle smaller/larger on phone */
-        aspect-ratio: 1080 / 1920 !important;
-        height: auto !important;
-        margin: 0 auto !important;
-      }
-
-      .role-photo {
-        object-fit: contain !important;
-      }
-      
-      .role-card {
-        padding-bottom: 3rem; /* Adds space between stacked roles */
-      }
       section { padding: 5rem 1.4rem; }
       .email-form { flex-direction: column; }
       .email-form input { border-right: 1px solid rgba(212,135,10,.25); border-bottom: none; }
       .nav-right { gap: .4rem; }
       .nav-wip, .nav-cta { font-size: .62rem; padding: .45rem .9rem; }
+    }
   </style>
 </head>
 <body>

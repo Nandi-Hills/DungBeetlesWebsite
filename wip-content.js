@@ -5,80 +5,115 @@
 
 const WIP_CONTENT = [
   {
-    "file": "media/01.png",
+    "file": "media/01 Title.png",
     "type": "image",
     "tag": "update",
-    "title": "01",
+    "title": "01 Title",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/02.png",
+    "file": "media/02 First Beetles Concept.png",
     "type": "image",
     "tag": "update",
-    "title": "02",
+    "title": "02 First Beetles Concept",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/03.png",
+    "file": "media/03 First Beetles Concept.png",
     "type": "image",
     "tag": "update",
-    "title": "03",
+    "title": "03 First Beetles Concept",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/04.png",
+    "file": "media/04 First Beetles Concept.png",
     "type": "image",
     "tag": "update",
-    "title": "04",
+    "title": "04 First Beetles Concept",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/05.png",
+    "file": "media/05 UI Concept.png",
     "type": "image",
     "tag": "update",
-    "title": "05",
+    "title": "05 Ui Concept",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/06.png",
+    "file": "media/06 Title.png",
     "type": "image",
     "tag": "update",
-    "title": "06",
+    "title": "06 Title",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/07.jpeg",
+    "file": "media/07 Beetles Concept Art.jpeg",
     "type": "image",
     "tag": "update",
-    "title": "07",
+    "title": "07 Beetles Concept Art",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/08.png",
+    "file": "media/08 Beetles Concept Art.png",
     "type": "image",
     "tag": "update",
-    "title": "08",
+    "title": "08 Beetles Concept Art",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/09.png",
+    "file": "media/09 Beetles Concept Art.png",
     "type": "image",
     "tag": "update",
-    "title": "09",
+    "title": "09 Beetles Concept Art",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/10.png",
+    "file": "media/10 POV Concept Art.png",
     "type": "image",
     "tag": "update",
-    "title": "10",
+    "title": "10 Pov Concept Art",
     "desc": "Auto-generated entry."
   },
   {
-    "file": "media/11.mp4",
-    "type": "video",
+    "file": "media/11 Beetles 3D Concept.jpeg",
+    "type": "image",
     "tag": "update",
-    "title": "11",
+    "title": "11 Beetles 3D Concept",
+    "desc": "Auto-generated entry."
+  },
+  {
+    "file": "media/12 Beetles 3D Concept.jpeg",
+    "type": "image",
+    "tag": "update",
+    "title": "12 Beetles 3D Concept",
+    "desc": "Auto-generated entry."
+  },
+  {
+    "file": "media/13 Beetles 3D Concept.jpeg",
+    "type": "image",
+    "tag": "update",
+    "title": "13 Beetles 3D Concept",
+    "desc": "Auto-generated entry."
+  },
+  {
+    "file": "media/14 Beetles 3D Concept.jpeg",
+    "type": "image",
+    "tag": "update",
+    "title": "14 Beetles 3D Concept",
+    "desc": "Auto-generated entry."
+  },
+  {
+    "file": "media/15 Beetles 3D Concept.jpeg",
+    "type": "image",
+    "tag": "update",
+    "title": "15 Beetles 3D Concept",
+    "desc": "Auto-generated entry."
+  },
+  {
+    "file": "media/16 Beetles 3D Concept.jpeg",
+    "type": "image",
+    "tag": "update",
+    "title": "16 Beetles 3D Concept",
     "desc": "Auto-generated entry."
   }
 ];

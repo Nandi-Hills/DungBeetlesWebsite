@@ -160,7 +160,17 @@
     .slide-thumb.active{opacity:1;border-color:var(--amber);box-shadow:0 0 12px rgba(212,135,10,.45);}
     .slide-thumb-num{position:absolute;bottom:.3rem;left:.45rem;font-family:'Share Tech Mono',monospace;font-size:.5rem;letter-spacing:.15em;color:rgba(232,220,200,.5);}
 
-    @media(max-width:700px){.slide-thumb{flex:0 0 90px;}.slide-title{font-size:1.5rem;}.slide-btn{width:38px;height:38px;}}
+@media(max-width:700px){
+      .slide-thumb{flex:0 0 90px;}
+      .slide-title{font-size:1.5rem;}
+      .slide-btn{width:38px;height:38px;}
+      
+      /* Hides the tag and description on mobile */
+      .slide-tag, .slide-desc { display: none !important; }
+      
+      /* Shifts the title downwards by reducing the bottom padding */
+      .slide-info-overlay { padding-bottom: 0.6rem !important; }
+    }
 
     /* PROGRESS */
     #progress{background:var(--bg2);}

@@ -121,6 +121,71 @@
     .log-tag.build{border-color:rgba(100,170,255,.35);color:var(--blue);}
     .log-tag.balance{border-color:rgba(196,102,255,.35);color:var(--purple);}
 
+    /* DEVLOG COLLAPSE FEATURE */
+    .devlog-feed-container {
+      position: relative;
+      width: 100%;
+    }
+    
+    .devlog-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-height: 720px; /* Cuts off right around the 5th entry */
+      overflow: hidden;
+      transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .devlog-feed.expanded {
+      max-height: 4000px; /* Expands to fit all content */
+    }
+    
+    .feed-fade {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 160px;
+      background: linear-gradient(to bottom, transparent, var(--bg2) 90%);
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+    
+    .feed-fade.hidden {
+      opacity: 0;
+    }
+    
+    .expand-btn {
+      width: 100%;
+      margin-top: 1rem;
+      background: transparent;
+      border: 1px dashed rgba(212,135,10,.3);
+      color: var(--amber);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 1rem;
+      cursor: none; /* Keeps your custom cursor working */
+      transition: all 0.3s;
+    }
+    
+    .expand-btn:hover {
+      border-color: var(--amber);
+      background: rgba(212,135,10,.05);
+      color: var(--amber-glow);
+    }
+    
+    .bounce-arrow {
+      display: inline-block;
+      margin-left: 8px;
+      font-size: 0.9rem;
+      animation: bounceDown 2s infinite;
+    }
+    
+    @keyframes bounceDown {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(4px); }
+    }
+
     /* CONCEPT ART */
     #gallery{background:var(--bg);}
     .gallery-header{margin-bottom:3rem;}
@@ -487,49 +552,98 @@
   <span class="s-tag reveal">// Devlog</span>
   <h2 class="s-title reveal">LATEST <em>UPDATES</em></h2>
   <div class="devlog-layout">
+    
+    <!-- LEFT SIDE: Updated Milestone and Text -->
     <div class="devlog-left reveal-left">
-      <div class="version-badge">Current Build: v0.0.1 &mdash; Pre-Alpha</div>
-      <p style="margin-top:1.6rem;">Documenting the journey of <strong>Dung Beetles</strong> . The code is private, but the process isn't.</p>
+      <div class="version-badge">Current Build: v0.0.2 &mdash; Pre-Alpha</div>
+      <p style="margin-top:1.6rem;">Documenting the journey of <strong>Dung Beetles</strong>. The code is private, but the process isn't.</p>
       <p>This devlog is where we share unfiltered updates as the game evolves. Expect a real look at our design shifts, art progress, and mechanics tweaking. Just pure game dev, from failures to breakthroughs.</p>
       <div class="milestone-box">
         <div class="ms-tag">// LATEST MILESTONE</div>
-        <div class="ms-title">Storm Role &mdash; First Playable</div>
-        <div class="ms-sub">Electric arc abilities now in prototype. Feels dangerous. Needs tuning.</div>
+        <div class="ms-title">Beetle Animation Ready</div>
+        <div class="ms-sub">The character model has been fully rigged and is now prepared for the animation pipeline.</div>
       </div>
     </div>
-    <div class="devlog-feed reveal-right">
-      <div class="log-entry">
-        <div class="log-date">Week 47 &middot; Nov 2025</div>
-        <div class="log-title">Storm Role &mdash; First Playable Prototype</div>
-        <div class="log-body">Got Storm's core ability loop into the build. The electromagnetic pulse works &mdash; disables nearby enemy abilities for 2.5s. Feels powerful but needs range tuning. Electric arc visuals are chef's kiss though.</div>
-        <span class="log-tag build">Build</span>
-      </div>
-      <div class="log-entry">
-        <div class="log-date">Week 45 &middot; Nov 2025</div>
-        <div class="log-title">Stealth Rework &mdash; Cloak Mechanic v2</div>
-        <div class="log-body">Old stealth was too binary. New system: partial transparency with a shimmer effect visible at close range. Rewards good positioning over just pressing a button. Way more fun to play against.</div>
-        <span class="log-tag design">Design</span>
-      </div>
-      <div class="log-entry">
-        <div class="log-date">Week 43 &middot; Oct 2025</div>
-        <div class="log-title">Dung Roll Physics &mdash; Major Overhaul</div>
-        <div class="log-body">The old roll felt like pushing a block. New system uses actual momentum accumulation &mdash; speed builds up on downhill terrain. Completely changes escort meta. Love it.</div>
-        <span class="log-tag build">Build</span>
-      </div>
-      <div class="log-entry">
-        <div class="log-date">Week 41 &middot; Oct 2025</div>
-        <div class="log-title">Role Art Pass &mdash; All 6 Concept Sheets Done</div>
-        <div class="log-body">Finished the full concept art pass for all six roles. Defender got a shield-arm redesign. Storm got bioluminescent accents on the carapace. Stealth shell is now oil-slick iridescent.</div>
+
+<!-- RIGHT SIDE: The Log Feed Container -->
+<div class="devlog-feed-container reveal-right">
+  
+  <!-- The Feed itself (Note the ID, your JS needs this to expand it) -->
+  <div class="devlog-feed" id="devlog-feed">
+    
+    <div class="log-entry">
+        <div class="log-date">Week 14 &middot; Apr 2026</div>
+        <div class="log-title">Beetle Became Animation Ready</div>
+        <div class="log-body">The character model has been fully rigged and is now prepared for the animation pipeline. Ready to start bringing it to life.</div>
         <span class="log-tag art">Art</span>
       </div>
+
       <div class="log-entry">
-        <div class="log-date">Week 38 &middot; Sep 2025</div>
-        <div class="log-title">5v5 Playtest #3 &mdash; The Fun Breakthrough</div>
-        <div class="log-body">A Trapper laid a maze of snares around the central pile, Scout called the flanks, two Attackers dove in and stole the roll mid-escort. Absolute chaos. <strong>This is the game.</strong></div>
-        <span class="log-tag balance">Balance</span>
+        <div class="log-date">Week 14 &middot; Apr 2026</div>
+        <div class="log-title">First 3D Model of Beetle</div>
+        <div class="log-body">Finished the initial 3D blockout and modeling for the main Beetle character based on our finalized concepts.</div>
+        <span class="log-tag art">Art</span>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-date">Week 12 &middot; Apr 2026</div>
+        <div class="log-title">Multiplayer Testing Done</div>
+        <div class="log-body">Ran the first successful multiplayer tests to ensure network stability and basic player synchronization. It's chaotic but functioning.</div>
+        <span class="log-tag build">Build</span>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-date">Week 12 &middot; Apr 2026</div>
+        <div class="log-title">First Ever Concept Art of Beetle's Hand Drawn</div>
+        <div class="log-body">Transitioned to hand-drawn concept art to refine the beetle's physical design, proportions, and personality.</div>
+        <span class="log-tag art">Art</span>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-date">Week 10 &middot; Mar 2026</div>
+        <div class="log-title">Game Title "Dung Beetles" Finalised</div>
+        <div class="log-body">Locked in the official name for the project. Simple, accurate, and sets the exact tone we want.</div>
+        <span class="log-tag design">Design</span>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-date">Week 8 &middot; Mar 2026</div>
+        <div class="log-title">First Game Design Document (GDD)</div>
+        <div class="log-body">Completed the initial GDD outlining core mechanics, gameplay loops, and the overall scope of the project.</div>
+        <span class="log-tag design">Design</span>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-date">Week 8 &middot; Mar 2026</div>
+        <div class="log-title">Game Development Got Started</div>
+        <div class="log-body">Core development has officially kicked off. Transitioned from purely conceptual pre-production into active building.</div>
+        <span class="log-tag build">Build</span>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-date">Week 1 &middot; Jan 2026</div>
+        <div class="log-title">First Ever Concept Art of Beetles Using AI</div>
+        <div class="log-body">Generated initial mood boards and character concepts using AI to establish a baseline aesthetic and gather quick ideas.</div>
+        <span class="log-tag art">Art</span>
+      </div>
+
+      <div class="log-entry">
+        <div class="log-date">Week 0 &middot; Jan 2026</div>
+        <div class="log-title">The Entire Game Started</div>
+        <div class="log-body">The foundational idea was born and initial brainstorming for the project commenced. The journey begins here.</div>
+        <span class="log-tag design">Design</span>
       </div>
     </div>
-  </div>
+
+  <!-- The fading gradient at the bottom -->
+  <div class="feed-fade" id="feed-fade"></div>
+  
+<!-- The togglable button -->
+      <button class="expand-btn" id="expand-btn" onclick="toggleDevlog()">
+        Show More <span class="bounce-arrow">&#8595;</span>
+      </button>
+
+</div>
 </section>
 
 <section id="gallery">
@@ -850,6 +964,32 @@ document.querySelectorAll('.role-canvas').forEach(c=>drawRole(c,c.dataset.role))
   }
   draw();
 })();
+
+/* ─── DEVLOG EXPAND/COLLAPSE FEATURE ─── */
+function toggleDevlog() {
+  const feed = document.getElementById('devlog-feed');
+  const fade = document.getElementById('feed-fade');
+  const btn = document.getElementById('expand-btn');
+  
+  if (feed.classList.contains('expanded')) {
+    // Action: COLLAPSE
+    feed.classList.remove('expanded');
+    fade.classList.remove('hidden');
+    // Change text back to 'Show More' with a Down Arrow
+    btn.innerHTML = 'Show More <span class="bounce-arrow">&#8595;</span>';
+    
+    // UX Polish: Smoothly scroll the user back to the top of the Devlog section
+    // so they aren't left staring at an empty space when the box shrinks!
+    document.getElementById('devlog').scrollIntoView({ behavior: 'smooth' });
+    
+  } else {
+    // Action: EXPAND
+    feed.classList.add('expanded');
+    fade.classList.add('hidden');
+    // Change text to 'Show Less' with an Up Arrow
+    btn.innerHTML = 'Show Less <span class="bounce-arrow">&#8593;</span>';
+  }
+}
 
 /* ─── COUNTDOWN ─── */
 (function(){

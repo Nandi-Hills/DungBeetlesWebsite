@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
   
-  <script src="wip-content.js?v=1777495360"></script>
+  <script src="wip-content.js?v=1777530646"></script>
 
   <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
@@ -526,9 +526,9 @@
     <p class="hero-sub">Raw. Unfiltered. Real. Everything we're building &mdash; concept art, gameplay clips, feature builds, and what's coming next.</p>
     <div class="hero-counters">
       <div class="hc"><div class="hc-num" id="hc-days">0</div><div class="hc-label">Days In Dev</div></div>
-      <div class="hc"><div class="hc-num">6</div><div class="hc-label">Roles Designed</div></div>
+      <div class="hc"><div class="hc-num">7</div><div class="hc-label">Roles Designed</div></div>
       <div class="hc"><div class="hc-num" id="hc-builds">0</div><div class="hc-label">Build Commits</div></div>
-      <div class="hc"><div class="hc-num">1</div><div class="hc-label">Dung Pile</div></div>
+<div class="hc"><div class="hc-num">100+</div><div class="hc-label">In The Swarm</div></div>
     </div>
   </div>
   <div class="scroll-hint"><span>Scroll</span><div class="scroll-line"></div></div>
@@ -659,7 +659,7 @@
     <img src="Beetles/defender.png" alt="Defender" class="role-photo" onerror="this.style.display='none'">
     <div class="role-img-overlay"></div>
   </div>
-  <div class="art-status done">Concept ✓</div>
+  <div class="art-status wip">In Progress</div>
   
   <div class="art-card-info">
     <div class="art-role-tag r1">Role 01 · Tank</div>
@@ -676,7 +676,7 @@
     <div class="role-img-overlay"></div>
   </div>
   
-  <div class="art-status done">Concept ✓</div>
+  <div class="art-status wip">In Progress</div>
   
   <div class="art-card-info">
     <div class="art-role-tag r2">Role 02 · Disruptor</div>
@@ -693,7 +693,7 @@
     <div class="role-img-overlay"></div>
   </div>
   
-  <div class="art-status done">Concept ✓</div>
+  <div class="art-status wip">In Progress</div>
   
   <div class="art-card-info">
     <div class="art-role-tag r3">Role 03 · Intel</div>
@@ -727,7 +727,7 @@
     <div class="role-img-overlay"></div>
   </div>
   
-  <div class="art-status wip">In Progress</div>
+  <div class="art-status soon">Coming Soon</div>
   
   <div class="art-card-info">
     <div class="art-role-tag r5">Role 05 · Infiltrator</div>
@@ -831,7 +831,7 @@
     <li><a href="https://discord.gg/6nU9dzydW" target="_blank" rel="noopener noreferrer">Discord</a></li>
     <li><a href="#">Press Kit</a></li>
   </ul>
-  <div class="footer-copy">&#169; 2025 The Crazy Capitaan Studios &middot; WIP Devlog</div>
+  <div class="footer-copy">&#169; 2024 The Crazy Capitaan Studios &middot; WIP Devlog</div>
 </div>
 
 <script>
@@ -870,7 +870,7 @@ const pts=Array.from({length:100},()=>({x:Math.random()*innerWidth,y:Math.random
 
 /* HERO COUNTERS */
 document.getElementById('hc-days').textContent = Math.floor((Date.now() - new Date('2026-03-17T00:00:00+05:30')) / 864e5);
-let bc=0;(function cB(){if(bc<247){bc+=3;document.getElementById('hc-builds').textContent=bc;setTimeout(cB,18);}})();
+let bc=0;(function cB(){if(bc<4){bc+=2;document.getElementById('hc-builds').textContent=bc;setTimeout(cB,18);}})();
 
 /* ROLE CANVASES */
 function drawRole(canvas,role){
@@ -910,8 +910,8 @@ document.querySelectorAll('.role-canvas').forEach(c=>drawRole(c,c.dataset.role))
   const c=document.getElementById('comm-canvas'),ctx=c.getContext('2d'),W=c.width,H=c.height;let t=0;
 
   // 200 particles. Math.pow keeps them dense near the inner ring, fading out toward the edges.
-  const swarm=Array.from({length:5},(_,i)=>({
-    col: i<3 ? '#4488ff' : '#ff4444', // 100 Blue, 100 Red
+  const swarm=Array.from({length:120},(_,i)=>({
+    col: i<60 ? '#4488ff' : '#ff4444', // 100 Blue, 100 Red
     phase: Math.random()*Math.PI*2,
     // Minimum radius of 65 (hollow core), spreading out an additional 150 pixels
     baseR: 65 + Math.pow(Math.random(), 2) * 150, 
@@ -1239,12 +1239,32 @@ document.addEventListener('DOMContentLoaded', () => {
         mediaGrid.innerHTML = `<div style="padding:2.5rem;color:var(--muted);font-family:'Share Tech Mono',monospace;border:1px dashed var(--border2);text-align:center;">// Awaiting uploads in wip-content.js</div>`;
     }
 
-    // 2. Render Upcoming Features
+// 2. Render Upcoming Features
     const upcomingGrid = document.getElementById('dynamic-upcoming-grid');
-    if (typeof UPCOMING_FEATURES !== 'undefined' && UPCOMING_FEATURES.length > 0) {
+    
+    // We override the external file here to directly inject the May 2026 milestones
+    const UPCOMING_FEATURES = [
+      { 
+        eta: "10 May 2026", 
+        title: "Dung Roll Mechanic V1", 
+        desc: "Implementing the core momentum physics. Rectifying initial collision bugs and ensuring the 'Carrier State' feels heavy but responsive." 
+      },
+      { 
+        eta: "15 May 2026", 
+        title: "First Playable Prototype", 
+        desc: "Stitching together the core loop. We will have a closed internal showcase where the game is finally running end-to-end on a test server." 
+      },
+      { 
+        eta: "30 May 2026", 
+        title: "Environment & Early Roster", 
+        desc: "Integrating the first pass of our 'Micro Battlefield' arena tileset alongside the early 3D blockouts of the primary beetle roles." 
+      }
+    ];
+
+    if (UPCOMING_FEATURES.length > 0) {
         upcomingGrid.innerHTML = UPCOMING_FEATURES.map(item => {
-            // Give 2025 dates 'active' styling, 2026 'planning' styling
-            const isActive = item.eta.includes('2025');
+            // Give 2026 dates 'active' styling, 2026 'planning' styling
+            const isActive = item.eta.includes('2026');
             const statusClass = isActive ? 'active' : 'planning';
             const statusText = isActive ? 'Active' : 'Planning';
 
